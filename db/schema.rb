@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_25_204119) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_25_220342) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,7 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_204119) do
     t.bigint "merchant_id", null: false
     t.string "name"
     t.string "description"
-    t.integer "price"
+    t.integer "unit_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
@@ -63,6 +63,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_204119) do
     t.string "result"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "credit_card_number"
+    t.string "credit_card_expiration_date"
     t.index ["invoice_id"], name: "index_transactions_on_invoice_id"
   end
 
