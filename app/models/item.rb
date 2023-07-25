@@ -5,5 +5,5 @@ class Item < ApplicationRecord
 
   validates_presence_of :name, :description, :unit_price, :description, :status
 
-  enum :status, ["disabled", "enabled"]
+  enum :status, { "disabled" => 0, "enabled" => 1 }
 end
