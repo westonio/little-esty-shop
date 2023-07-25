@@ -10,7 +10,7 @@ RSpec.describe InvoiceItem, type: :model do
     it { should validate_presence_of :quantity }
     it { should validate_presence_of :unit_price }
     it { should validate_presence_of :status }
-    it { should define_enum_for(:status).with([:pending, :packaged, :shipped]) }
+    it { should define_enum_for(:status).with_values(["pending", "packaged", "shipped"]) }
   end
 
   describe 'Instance Methods' do
