@@ -1,3 +1,3 @@
-class Merchants::ItemsController < ApplicationController
+class ItemsController < ApplicationController
 
 end

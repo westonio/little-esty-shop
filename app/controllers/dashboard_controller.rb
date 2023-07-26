@@ -1,3 +1,3 @@
-class Merchants::DashboardController < ApplicationController
+class DashboardController < ApplicationController
 
 end

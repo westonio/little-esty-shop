@@ -1,3 +1,3 @@
-class Merchants::InvoicesController < ApplicationController
+class InvoicesController < ApplicationController
 
 end
