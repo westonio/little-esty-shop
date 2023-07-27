@@ -11,7 +11,8 @@ RSpec.describe 'Merchant Invoices Index' do
     InvoiceItem.create!(item: @item1, invoice: @invoice1, quantity: 1, unit_price: 10, status: 0)
   end
 
-  # User Story 14
+  # User Story 14 Testing Begins
+
   # As a merchant,
   # When I visit my merchant's invoices index (/merchants/:merchant_id/invoices)
   # Then I see all of the invoices that include at least one of my merchant's items
@@ -26,9 +27,8 @@ RSpec.describe 'Merchant Invoices Index' do
   it 'links each invoice id to the merchant invoice show page' do
     visit merchant_invoices_path(@merchant1)
     within "#invoice-#{@invoice1.id}" do
-      click_link @invoice1.id.to_s
+      expect(page).to have_link(@invoice1.id.to_s, href: merchant_invoice_path(@merchant1, @invoice1))
     end
-
-    expect(current_path).to eq(merchant_invoice_path(@merchant1, @invoice1))
   end
+  # User Story 14 Testing End
 end
