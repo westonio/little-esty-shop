@@ -51,4 +51,50 @@ RSpec.describe Merchant do
       end
     end
   end
+
+  #8. Merchant Items Index Page
+  describe "As a merchant," do
+    describe "When I visit the merchant show page of an item (/merchants/:merchant_id/items/:item_id)" do
+      describe "I see a link to update the item information." do
+        describe "When I click the link" do
+          describe "Then I am taken to a page to edit this item" do
+            describe "And I see a form filled in with the existing item attribute information" do
+              describe "When I update the information in the form and I click submit" do
+                describe "Then I am redirected back to the item show page where I see the updated information" do
+                  it "And I see a flash message stating that the information has been successfully updated." do
+
+                    visit "/merchants/#{@merchant_1.id}/items/#{@item_1.id}"
+
+                    click_link "Edit #{@item_1.name}"
+
+                    expect(current_path).to eq("/merchants/#{@merchant_1.id}/items/#{@item_1.id}/edit")
+                    save_and_open_page
+                    expect(page).to have_field("Name", with: @item_1.name)
+                    expect(page).to have_field("Description", with: @item_1.description)
+                    expect(page).to have_field("Unit price", with: @item_1.unit_price)
+
+
+                    fill_in "Name", with: "Tomato"
+                    fill_in "Description", with: "This is a tomato"
+
+                    click_button "Submit"
+
+
+                    @item_1.reload
+
+                    expect(@item_1.name).to eq("Tomato")
+                    expect(@item_1.description).to eq( "This is a tomato")
+                    expect(@item_1.unit_price).to eq(1)
+
+                    expect(current_path).to eq("/merchants/#{@merchant_1.id}/items/#{@item_1.id}")
+                    expect(page).to have_content("#{@item_1.name} has been updated!")
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
 end
