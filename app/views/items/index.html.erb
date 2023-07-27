@@ -1,0 +1,5 @@
+<div class="page-title"><%= @merchant.name%></div>
+<br>
+<% @merchant.items.each do |item| %>
+  <%= item.name %>
+<% end %>
