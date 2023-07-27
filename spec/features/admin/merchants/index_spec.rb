@@ -21,4 +21,16 @@ RSpec.describe "Admin Merchants Index Page" do
     expect(page).to have_content(@merchant_6.name)
     expect(page).to_not have_content("Johnson-Dickinson")
   end
+
+  it "links to the merchant show page when you click the merchant's name" do
+    visit "/admin/merchants"
+
+    click_link(@merchant_1.name)
+    expect(current_path).to eq("/admin/merchants/#{@merchant_1.id}")
+
+    visit "/admin/merchants"
+    
+    click_link(@merchant_2.name)
+    expect(current_path).to eq("/admin/merchants/#{@merchant_2.id}")
+  end
 end
