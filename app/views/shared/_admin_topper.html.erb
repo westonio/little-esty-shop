@@ -1,0 +1,25 @@
+<header>Little Esty Shop</header>
+<div class="page-topper"> 
+  <h2 id="merchant-admin-name"> Admin Dashboard</h2>
+  <nav id="nav_bar">
+    <ul>
+      <% if local_assigns[:dashboard] %>
+        <li class="current-menu-item"><%= link_to "Dashboard", admin_path %></li>
+      <% else %>
+        <li><%= link_to "Dashboard", admin_path %></li>
+      <% end %>
+
+      <% if local_assigns[:merchants] %>
+        <li class="current-menu-item"><%= link_to "Merchants", admin_merchants_path %></li>
+      <% else %>
+        <li><%= link_to "Merchants", admin_merchants_path %></li>
+      <% end %>
+      
+      <% if local_assigns[:invoices] %>
+        <li class="current-menu-item"><%= link_to "Invoices", admin_invoices_path %></li>
+      <% else %>
+        <li><%= link_to "Invoices", admin_invoices_path %></li>
+      <% end %>
+    </ul>
+  </nav>
+</div>

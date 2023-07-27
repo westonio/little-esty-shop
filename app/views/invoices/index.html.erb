@@ -1,0 +1,20 @@
+<div class="page-title">My Invoices</div>
+<h1 class="main_title">Welcome to Little Esty Shop</h1>
+<div class="merchant_title">
+  <h2>Ray's Handmade Jewelry</h2>
+  <nav class="main-menu">
+    <%= link_to "Dashboard", root_path %>
+    <%= link_to "My Items", root_path %>
+    <%= link_to "My Invoices", merchant_invoices_path(@merchant) %>
+  </nav>
+</div>
+<div class="seperator"></div>
+<div class="container">
+</div>
+<ul>
+  <% @invoices.each do |invoice| %>
+    <li id="invoice-<%= invoice.id %>">
+      Invoice ID: <%= link_to invoice.id, merchant_invoice_path(@merchant, invoice) %>
+    </li>
+  <% end %>
+</ul>
