@@ -14,6 +14,11 @@ RSpec.describe Invoice, type: :model do
   end
 
   describe 'Instance Methods' do
-    
+    it 'concatenates its customers names' do
+      joey = Customer.create!(first_name: 'Joey', last_name: 'Ondricka')
+      invoice_1 = joey.invoices.create!()
+
+      expect(invoice_1.customer_name).to eq("Joey Ondricka")
+    end
   end
 end
