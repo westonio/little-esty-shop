@@ -3,5 +3,5 @@
 <h2><div class="page-title">Merchant Dashboard</div></h2>
 
 <h3><%= @merchant.name %></h3>
-<p><%= link_to "My Items", "/merchants/:merchant_id/items" %><p>
-<p><%= link_to "My Invoices", "/merchants/:merchant_id/invoices" %></p>
+<p><%= link_to "My Items", merchant_items_path %><p>
+<p><%= link_to "My Invoices", merchant_invoices_path %></p>
