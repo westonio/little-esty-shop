@@ -19,8 +19,8 @@ RSpec.describe "Merchant Dashboard" do
   it "displays a link to merchant items index and merchant invoices index pages" do
     visit "/merchants/#{@m1.id}/dashboard"
 
-    expect(page).to have_link("Items")
-    expect(page).to have_link("Invoices")
+    expect(page).to have_link("My Items")
+    expect(page).to have_link("My Invoices")
     expect(page).to_not have_link("Admin")
   end
 end
