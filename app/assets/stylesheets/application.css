@@ -1,15 +1,83 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+/* ADMIN VIEW CSS */
+ * {
+  margin-top: 0px;
+}
+
+body {
+  padding: 0px 25px;
+  font-family: sans-serif;
+}
+
+header {
+  background-color: #D8DAD3;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 260px;
+  padding: 20px; 
+  margin-top: 0px;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  border-radius: 0px 0px 20px 20px;
+}
+
+#merchant-admin-name {
+  display: inline;
+  float: left;
+  padding: 16px;
+  color: #4A4A48;
+}
+
+nav {
+  padding: 16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  display: inline;
+  float: right;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  padding: 10px 10px 0px 10px
+}
+
+nav li {
+  margin-right: 15px;
+  padding-right: 10px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #4A4A48;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.page-topper {
+  margin-bottom: 120px;
+}
+
+.current-menu-item a {
+  background: #D8DAD3 ;
+  padding: 10px;
+  border-radius: 10px 100px / 120px;
+  color: black;
+}
+
+.full-length-header {
+  clear: both;
+  border-top: solid;
+  text-align: center;
+  padding: 5px;
+  background-color: #D8DAD3;
+}
+
+.admin-invoices {
+  margin-left: 80px;
+}
+/* END ADMIN VIEW CSS */
