@@ -1,5 +1,5 @@
 <div class="page-title">Admin Merchants Index</div> 
 
 <% @merchants.each do |merchant| %>
-<%= merchant.name %>
+<%= link_to merchant.name, admin_merchant_path(merchant) %>
 <% end %>
