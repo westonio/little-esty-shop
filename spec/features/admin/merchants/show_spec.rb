@@ -8,11 +8,11 @@ RSpec.describe "Admin Merchants Show Page" do
   end
 
   it "displays the name of the merchant" do
-    visit "/admin/merchants/#{@merchant_1.id}"
+    visit admin_merchant_path(@merchant_1)
     expect(page).to have_content(@merchant_1.name)
     expect(page).to_not have_content(@merchant_2.name)
     
-    visit "/admin/merchants/#{@merchant_2.id}"
+    visit admin_merchant_path(@merchant_2)
     expect(page).to have_content(@merchant_2.name)
     expect(page).to_not have_content(@merchant_3.name)
   end
