@@ -1,0 +1,9 @@
+<%= render partial: "shared/admin_topper" %>
+<h3 class="full-length-header"> Invoice #<%= @invoice.id  %></h3>
+<p>Status: <%= @invoice.status.capitalize %></p>
+<p>Created on: <%= @invoice.created_at.strftime('%A, %e %b %Y') %></p>
+
+<h2>Customer:</h2>
+<div id="invoice-customer-info">
+  <p><%= @invoice.customer_name %></p>
+</div>
