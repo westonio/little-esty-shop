@@ -1,3 +1,8 @@
 <div class="page-title"><%= @item.name %></div>
-<%= @item.description %>
-<%= @item.unit_price %>
+<p>Description: <%= @item.description %></p>
+<p>Unit Price: <%= @item.unit_price %></p>
+<%= link_to "Edit #{@item.name}", edit_merchant_item_path(@merchant, @item) %>
+<div class="flash-message">
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
