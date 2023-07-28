@@ -1,9 +1,29 @@
 <%= render partial: "shared/admin_topper" %>
 <h3 class="full-length-header"> Invoice #<%= @invoice.id  %></h3>
-<p>Status: <%= @invoice.status.capitalize %></p>
-<p>Created on: <%= @invoice.created_at.strftime('%A, %e %b %Y') %></p>
 
-<h2>Customer:</h2>
 <div id="invoice-customer-info">
-  <p><%= @invoice.customer_name %></p>
+  <p>Status: <%= @invoice.status.capitalize %></p>
+  <p>Created on: <%= @invoice.created_at.strftime('%A, %e %b %Y') %></p>
+  <h3>Customer:</h3>
+  <p id="customer-name"><%= @invoice.customer_name %></p>
+</div>
+
+<div id="admin-invoice-items">
+  <h3>Items on this Invoice:</h3>
+  <table id="admin-invoice-table">
+    <tr>
+      <th>Item Name</th>
+      <th>Quantity</th>
+      <th>Unit Price</th>
+      <th>Status</th>
+    </tr>
+    <% @invoice.invoice_items.each do |invoice_item| %>
+      <tr id="invoice-item-<%= invoice_item.id %>">
+        <td><%= invoice_item.item.name %></td>
+        <td><%= invoice_item.quantity %></td>
+        <td><%= invoice_item.unit_price %></td>
+        <td><%= invoice_item.status %></td>
+      </tr>
+    <% end %>
+  </table>
 </div>
