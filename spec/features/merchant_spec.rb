@@ -69,15 +69,6 @@ RSpec.describe Merchant do
                     expect(page).to have_field("Description", with: @item_1.description)
                     expect(page).to have_field("Unit price", with: @item_1.unit_price)
 
-
-                    fill_in "Name", with: "Tomato"
-                    fill_in "Description", with: "This is a tomato"
-
-                    expect(page).to have_field('Name', with: @item_1.name)
-                    expect(page).to have_field('Description', with: @item_1.description)
-                    expect(page).to have_field('Unit price', with: @item_1.unit_price)
-
-
                     fill_in 'Name', with: 'Tomato'
                     fill_in 'Description', with: 'This is a tomato'
 
