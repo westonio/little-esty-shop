@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :dashboard, only: :index
     resources :items, only: [:index, :show, :edit, :update]
     resources :invoices, only: [:index, :show]
+    patch '/invoice_items/:invoice_item_id', to: 'invoices#update_status', as: 'invoice_item_update'
   end
 
   namespace :admin do
