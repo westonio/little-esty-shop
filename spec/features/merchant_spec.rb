@@ -68,7 +68,7 @@ RSpec.describe Merchant do
                     click_link "Edit #{@item_1.name}"
 
                     expect(current_path).to eq("/merchants/#{@merchant_1.id}/items/#{@item_1.id}/edit")
-                    save_and_open_page
+
                     expect(page).to have_field("Name", with: @item_1.name)
                     expect(page).to have_field("Description", with: @item_1.description)
                     expect(page).to have_field("Unit price", with: @item_1.unit_price)
@@ -91,6 +91,36 @@ RSpec.describe Merchant do
                   end
                 end
               end
+            end
+          end
+        end
+      end
+    end
+  end
+
+  #9. Merchant Items Index Page
+  describe "As a merchant" do
+    describe "When I visit my items index page (/merchants/:merchant_id/items)" do
+      describe "Next to each item name I see a button to disable or enable that item." do
+        describe "When I click this button" do
+          describe "Then I am redirected back to the items index" do
+            it "And I see that the items status has changed" do
+
+              visit "/merchants/#{@merchant_1.id}/items"
+
+              expect(page).to have_button("Enable #{@item_1.name}")
+              expect(page).to have_button("Enable #{@item_2.name}")
+              expect(page).to have_button("Enable #{@item_3.name}")
+
+
+              click_button("Enable #{@item_1.name}")
+
+              @item_1.reload
+
+              expect(current_path).to eq("/merchants/#{@merchant_1.id}/items")
+              expect(page).to have_button("Disable #{@item_1.name}")
+              expect(page).to have_button("Enable #{@item_2.name}")
+              expect(page).to have_button("Enable #{@item_3.name}")
             end
           end
         end
