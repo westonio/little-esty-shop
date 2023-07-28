@@ -1,5 +1,8 @@
+<%= render partial: "shared/admin_topper", locals: { merchants: true  } %>
+
 <div class="page-title">Admin Merchants Show</div> 
 
 <p><%= @merchant.name %></p>
 
 <p><%= link_to "Update Merchant", edit_admin_merchant_path(@merchant) %></p>
+

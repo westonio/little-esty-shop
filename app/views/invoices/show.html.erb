@@ -1,0 +1,23 @@
+<%= render partial: "shared/visitor_topper", locals: { invoices: true  } %>
+<div class="page-title">Invoice ID: <%= @invoice.id %></div>
+<br>
+<p>Invoice Status: <%= @invoice.status %></p>
+<p>Created at: <%= format_date(@invoice.created_at) %></p>
+<p>Total Revenue: <%= number_to_currency((@invoice.total_revenue / 100.0)) %></p>
+<p>Customer Name: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
+<table class="show-table">
+  <tr>
+    <th>Item Name</th>
+    <th>Quantity</th>
+    <th>Unit Price</th>
+    <th>Status</th>
+  </tr>
+  <% @invoice.invoice_items.each do |invoice_item| %>
+    <tr>
+      <td><%= invoice_item.item.name %></td>
+      <td><%= invoice_item.quantity %></td>
+      <td><%= number_to_currency((invoice_item.unit_price / 100.0)) %></td>
+      <td><%= invoice_item.status %></td>
+    </tr>
+  <% end %>
+</table>

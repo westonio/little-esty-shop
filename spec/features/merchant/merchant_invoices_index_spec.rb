@@ -3,12 +3,20 @@ require 'rails_helper'
 RSpec.describe 'Merchant Invoices Index' do
   before :each do
     @merchant1 = Merchant.create!(name: 'Hair Care')
+    @merchant2 = Merchant.create!(name: 'Jewelry')
+
     @customer1 = Customer.create!(first_name: 'Joey', last_name: 'Smith')
 
-    @item1 = @merchant1.items.create!(name: 'Shampoo', description: 'This washes your hair', unit_price: 10, status: 0)
+    @item1 = @merchant1.items.create!(name: 'Shampoo', description: 'This washes your hair', unit_price: 10,
+                                      status: 0)
+    @item2 = @merchant2.items.create!(name: 'Conditioner', description: 'This makes your hair shiny', unit_price: 20,
+                                      status: 0)
+
     @invoice1 = @customer1.invoices.create!(status: 1)
+    @invoice2 = @customer1.invoices.create!(status: 1)
 
     InvoiceItem.create!(item: @item1, invoice: @invoice1, quantity: 1, unit_price: 10, status: 0)
+    InvoiceItem.create!(item: @item2, invoice: @invoice2, quantity: 1, unit_price: 20, status: 0)
   end
 
   # User Story 14 Testing Begins
@@ -29,6 +37,6 @@ RSpec.describe 'Merchant Invoices Index' do
     within "#invoice-#{@invoice1.id}" do
       expect(page).to have_link(@invoice1.id.to_s, href: merchant_invoice_path(@merchant1, @invoice1))
     end
+    # User Story 14 Testing End
   end
-  # User Story 14 Testing End
 end

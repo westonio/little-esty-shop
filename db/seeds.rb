@@ -1,3 +1,4 @@
+
 InvoiceItem.destroy_all
 Item.destroy_all
 Merchant.destroy_all
