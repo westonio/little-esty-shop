@@ -68,7 +68,7 @@ RSpec.describe Merchant do
                     click_link "Edit #{@item_1.name}"
 
                     expect(current_path).to eq("/merchants/#{@merchant_1.id}/items/#{@item_1.id}/edit")
-                    save_and_open_page
+                    
                     expect(page).to have_field("Name", with: @item_1.name)
                     expect(page).to have_field("Description", with: @item_1.description)
                     expect(page).to have_field("Unit price", with: @item_1.unit_price)
