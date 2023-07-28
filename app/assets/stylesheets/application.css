@@ -170,28 +170,28 @@ ul {
   list-style-type: none;
 }
 
-.custom-table {
+.show-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.custom-table th,
-.custom-table td {
+.show-table th,
+.show-table td {
   border: 1px solid black;
   padding: 8px;
   text-align: center;
   vertical-align: center;
 }
 
-.custom-table th {
+.show-table th {
   background-color: #9E9E9E; /* Header Row Background Color */
   color: white; /* Text color for header cells */
 }
 
-.custom-table tr:nth-child(even) td {
+.show-table tr:nth-child(even) td {
   background-color: #E6E6E6; /* Lighter grey for even rows */
 }
 
-.custom-table tr:nth-child(odd) td {
+.show-table tr:nth-child(odd) td {
   background-color: #ffffffdb; /* Slightly darker than white for odd rows */
 }
