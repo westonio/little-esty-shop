@@ -7,4 +7,12 @@ class Invoice < ApplicationRecord
   validates_presence_of :status
 
   enum :status, { "in progress" => 0, "cancelled" => 1, "completed" => 2 }
+
+  def customer_name
+    "#{customer.first_name} #{customer.last_name}"
+  end
+
+  def total_revenue
+    InvoiceItem.where(invoice_id: self.id).sum("quantity*unit_price")
+  end
 end

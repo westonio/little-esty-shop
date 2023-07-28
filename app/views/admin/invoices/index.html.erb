@@ -1,0 +1,9 @@
+<%= render partial: "shared/admin_topper", locals: { invoices: true  } %>
+
+<h3 class="full-length-header"> Invoices </h3>
+
+<div class="admin-invoices">
+  <% @invoices.each do |invoice| %>
+    <p><%= link_to "Invoice ##{invoice.id}", admin_invoice_path(invoice) %></p>
+  <% end %>
+</div>

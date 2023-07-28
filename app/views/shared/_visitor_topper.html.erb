@@ -1,0 +1,26 @@
+<header>
+  <%= link_to "Little Esty Shop", root_path, style: "text-decoration: none; color: black;" %>
+</header>
+<div class="page-topper">
+  <h2 id="merchant-name"><%= @merchant_name %></h2>
+  <nav id="nav_bar">
+    <ul>
+      <% if local_assigns[:dashboard] %>
+        <li class="current-menu-item"><%= link_to "Dashboard", merchant_dashboard_index_path %></li>
+      <% else %>
+        <li><%= link_to "Dashboard", merchant_dashboard_index_path %></li>
+      <% end %>
+      <% if local_assigns[:items] %>
+        <li class="current-menu-item"><%= link_to "My Items", merchant_items_path %></li>
+      <% else %>
+        <li><%= link_to "My Items", merchant_items_path %></li>
+      <% end %>
+      <% if local_assigns[:invoices] %>
+        <li class="current-menu-item"><%= link_to "My Invoices", merchant_invoices_path %></li>
+      <% else %>
+        <li><%= link_to "My Invoices", merchant_invoices_path %></li>
+      <% end %>
+    </ul>
+  </nav>
+</div>
+<div class="seperator"></div>
