@@ -42,8 +42,10 @@ RSpec.describe 'Admin Invoice Show Page', type: :feature do
       end
 
       it "shows the invoice's status" do
-        expect(page).to have_content(@invoice_1.status.capitalize, count: 1)
-        expect(page).to_not have_content(@invoice_2.status.capitalize)
+        within("#invoice-customer-info") do
+          expect(page).to have_content(@invoice_1.status.capitalize, count: 1)
+          expect(page).to_not have_content(@invoice_2.status.capitalize)
+        end
       end
 
       it "shows the invoice's created_at date in the format 'Monday, July 18, 2019'" do
@@ -71,7 +73,7 @@ RSpec.describe 'Admin Invoice Show Page', type: :feature do
         expect(page).to_not have_content(@invoice_item_3.item.name)
         expect(page).to_not have_css("#invoice-item-#{@invoice_item_3.id}")
       end
-      
+
       it "shows each item's quantity ordered" do
         within("#invoice-item-#{@invoice_item_1.id}") do
           expect(page).to have_content(@invoice_item_1.quantity)
@@ -84,11 +86,11 @@ RSpec.describe 'Admin Invoice Show Page', type: :feature do
 
       it "shows each item's unit price it was sold for" do
         within("#invoice-item-#{@invoice_item_1.id}") do
-          expect(page).to have_content(@invoice_item_1.unit_price, count: 1)
+          expect(page).to have_content("$700.00", count: 1)
         end
 
         within("#invoice-item-#{@invoice_item_2.id}") do
-          expect(page).to have_content(@invoice_item_2.unit_price, count: 1)
+          expect(page).to have_content("$690.00", count: 1)
         end
       end
 
@@ -100,6 +102,12 @@ RSpec.describe 'Admin Invoice Show Page', type: :feature do
         within("#invoice-item-#{@invoice_item_2.id}") do
           expect(page).to have_content(@invoice_item_2.status, count: 1)
         end
+      end
+    end
+
+    describe "Then I see the total revenue that will be generated from this invoice." do
+      it "shows the total revenue that will be generated from the invoice" do
+        expect(page).to have_content("Total Revenue: $7,640.00")
       end
     end
   end
