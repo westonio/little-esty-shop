@@ -1,0 +1,14 @@
+<header>
+  <%= link_to "Little Esty Shop", root_path, style: "text-decoration: none; color: black;" %>
+</header>
+<div class="seperator"></div>
+<div style="display: flex; justify-content: center;">
+  <h1>Select a Merchant:</h1>
+</div>
+<div class="center-content" style="display: flex; justify-content: center; text-align: left;">
+  <ul style="text-align: left; padding-left: 0; margin: 0; width: fit-content;">
+    <% @merchants.each do |merchant| %>
+      <li><%= link_to merchant.name, merchant_dashboard_index_path(merchant) %></li>
+    <% end %>
+  </ul>
+</div>

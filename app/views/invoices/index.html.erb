@@ -1,0 +1,8 @@
+<%= render partial: "shared/visitor_topper", locals: { invoices: true  } %>
+<ul>
+  <% @invoices.each do |invoice| %>
+    <li id="invoice-<%= invoice.id %>">
+      Invoice ID: <%= link_to invoice.id, merchant_invoice_path(@merchant, invoice) %>
+    </li>
+  <% end %>
+</ul>
