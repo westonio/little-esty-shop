@@ -5,7 +5,8 @@ RSpec.describe 'Merchant Invoices Index' do
     @merchant1 = Merchant.create!(name: 'Hair Care')
     @customer1 = Customer.create!(first_name: 'Joey', last_name: 'Smith')
 
-    @item1 = @merchant1.items.create!(name: 'Shampoo', description: 'This washes your hair', unit_price: 10, status: 0)
+    @item1 = @merchant1.items.create!(name: 'Shampoo', description: 'This washes your hair', unit_price: 10,
+                                      status: 0)
     @invoice1 = @customer1.invoices.create!(status: 1)
 
     InvoiceItem.create!(item: @item1, invoice: @invoice1, quantity: 1, unit_price: 10, status: 0)
@@ -31,4 +32,34 @@ RSpec.describe 'Merchant Invoices Index' do
     end
   end
   # User Story 14 Testing End
+
+  # User Story 15 Testing Begins
+
+  # As a merchant
+  # When I visit my merchant's invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
+  # Then I see information related to that invoice including:
+
+  # Invoice id
+  # Invoice status
+  # Invoice created_at date in the format "Monday, July 18, 2019"
+  # Customer first and last name
+
+  it 'displays the invoice id and status on the merchants show page' do
+    visit merchant_invoice_path(@merchant1, @invoice1)
+
+    expect(page).to have_content(@invoice1.id)
+    expect(page).to have_content(@invoice1.status)
+  end
+
+  it 'displays the invoice created_at date in the format "Monday, July 18, 2019"' do
+    visit merchant_invoice_path(@merchant1, @invoice1)
+
+    expect(page).to have_content(@invoice1.created_at.strftime('%A, %B %d, %Y'))
+  end
+
+  it 'displays the customer first and last name' do
+    visit merchant_invoice_path(@merchant1, @invoice1)
+
+    expect(page).to have_content(@customer1.first_name)
+  end
 end
