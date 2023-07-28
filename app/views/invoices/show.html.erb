@@ -1,9 +1,9 @@
 <%= render partial: "shared/visitor_topper", locals: { invoices: true  } %>
 <div class="page-title">Invoice ID: <%= @invoice.id %></div>
-<p>Item Status: <%= @invoice.status %></p>
+<p>Invoice Status: <%= @invoice.status %></p>
 <p>Created at: <%= format_date(@invoice.created_at) %></p>
 <p>Customer Name: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
-<table class="custom-table">
+<table class="show-table">
   <tr>
     <th>Item Name</th>
     <th>Quantity</th>
