@@ -1,7 +1,6 @@
 <%= form_with(
   model: @item,
   url: merchant_item_path(@merchant, @item),
-  method: :patch,
   local: true,
   data: { turbo: false }
   )do |f| %>
@@ -15,4 +14,3 @@
 <% end %>
 
 
-# try without method patch
