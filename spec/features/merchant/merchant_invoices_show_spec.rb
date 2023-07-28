@@ -84,5 +84,18 @@ RSpec.describe 'Merchant Invoices Index' do
       expect(page).to_not have_content(number_to_currency(@item2.unit_price / 100.0))
       expect(page).to_not have_content(@item2.status)
     end
+    # User Story 16 Testing End
+  end
+
+  # User Story 17 Testing Begins
+
+  # As a merchant
+  # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
+  # Then I see the total revenue that will be generated from all of my items on the invoice
+
+  it 'displays the total revenue generated from all of my items on the invoice' do
+    visit merchant_invoice_path(@merchant1, @invoice1)
+
+    expect(page).to have_content(number_to_currency(@invoice1.total_revenue / 100.0))
   end
 end
