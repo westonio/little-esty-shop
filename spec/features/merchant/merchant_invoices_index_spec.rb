@@ -61,5 +61,27 @@ RSpec.describe 'Merchant Invoices Index' do
     visit merchant_invoice_path(@merchant1, @invoice1)
 
     expect(page).to have_content(@customer1.first_name)
+    # User Story 15 Testing End
+  end
+
+  # User Story 16 Testing Begins
+
+  # As a merchant
+  # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
+  # Then I see all of my items on the invoice including:
+
+  # Item name
+  # The quantity of the item ordered
+  # The price the Item sold for
+  # The Invoice Item status
+  # And I do not see any information related to Items for other merchants
+
+  it 'displays item name, quantity, price, and invoice item status for this merchant only' do
+    visit merchant_invoice_path(@merchant1, @invoice1)
+
+    expect(page).to have_content(@item1.name)
+    expect(page).to have_content(@item1.quantity)
+    expect(page).to have_content(@item1.unit_price)
+    expect(page).to have_content(@item1.status)
   end
 end
