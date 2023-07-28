@@ -23,4 +23,10 @@ RSpec.describe "Merchant Dashboard" do
     expect(page).to have_link("My Invoices")
     expect(page).to_not have_link("Admin")
   end
+  #user story 3
+  it "displays the names of the top 5 customers" do
+    visit "/merchants/#{@m1.id}/dashboard"
+
+    expect(page).to have_content("Favorite Customers")
+  end
 end
