@@ -15,7 +15,7 @@ header {
   margin-right: auto;
   text-align: center;
   width: 260px;
-  padding: 20px; 
+  padding: 20px;
   margin-top: 0px;
   font-size: 30px;
   font-weight: bold;
@@ -41,7 +41,7 @@ nav {
 nav ul {
   list-style: none;
   display: flex;
-  padding: 10px 10px 0px 10px
+  padding: 10px 10px 0px 10px;
 }
 
 nav li {
@@ -63,7 +63,7 @@ nav a:hover {
 }
 
 .current-menu-item a {
-  background: #D8DAD3 ;
+  background: #D8DAD3;
   padding: 10px;
   border-radius: 10px 100px / 120px;
   color: black;
@@ -80,6 +80,39 @@ nav a:hover {
 .admin-invoices {
   margin-left: 80px;
 }
+
+#invoice-customer-info, #admin-invoice-items {
+  margin-left: 40px;
+}
+
+#invoice-customer-info h3, #invoice-customer-info p, #admin-invoice-items h3 {
+  padding: 10px 0px;
+}
+
+#customer-name, #admin-invoice-table {
+  margin-left: 40px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 80%;
+}
+
+th {
+  color: white;
+  background-color: grey;
+}
+
+th, td {
+  text-align: center;
+  padding: 8px;
+  border: solid black;
+}
+
+tr:nth-child(even) {
+  background-color: lightgrey;
+}
+
 /* END ADMIN VIEW CSS */
 
 
