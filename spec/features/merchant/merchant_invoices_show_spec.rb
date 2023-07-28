@@ -142,4 +142,5 @@ RSpec.describe 'Merchant Invoices Index' do
     expect(current_path).to eq(merchant_invoice_path(@merchant1, @invoice1))
     expect(page).to have_select(dropdown_id, selected: new_status)
   end
+  # User Story 18 Testing End
 end
