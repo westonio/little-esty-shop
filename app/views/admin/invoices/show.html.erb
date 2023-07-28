@@ -2,7 +2,13 @@
 <h3 class="full-length-header"> Invoice #<%= @invoice.id  %></h3>
 
 <div id="invoice-customer-info">
-  <p>Status: <%= @invoice.status.capitalize %></p>
+  <%= form_with url: admin_invoice_path(@invoice), method: :patch, local: true do |form| %>
+    <p>
+      <%= form.label :status, "Status:" %>
+      <%= form.select :status, [["In Progress", "in progress"],["Cancelled", "cancelled"],["Completed", "completed"]], selected: @invoice.status %>
+      <%= form.submit "Update Invoice" %>
+    </p>
+  <% end %>
   <p>Created on: <%= @invoice.created_at.strftime('%A, %e %b %Y') %></p>
   <p>Total Revenue: <%= number_to_currency((@invoice.total_revenue / 100.0)) %></p>
 
