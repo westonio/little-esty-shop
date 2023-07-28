@@ -3,3 +3,19 @@
 <p>Item Status: <%= @invoice.status %></p>
 <p>Created at: <%= format_date(@invoice.created_at) %></p>
 <p>Customer Name: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
+<table class="custom-table">
+  <tr>
+    <th>Item Name</th>
+    <th>Quantity</th>
+    <th>Unit Price</th>
+    <th>Status</th>
+  </tr>
+  <% @invoice.invoice_items.each do |invoice_item| %>
+    <tr>
+      <td><%= invoice_item.item.name %></td>
+      <td><%= invoice_item.quantity %></td>
+      <td><%= invoice_item.unit_price %></td>
+      <td><%= invoice_item.status %></td>
+    </tr>
+  <% end %>
+</table>
