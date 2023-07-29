@@ -37,8 +37,8 @@ RSpec.describe 'Admin Invoice Show Page', type: :feature do
 
     describe "I see information related to that invoice" do
       it "shows the invoice's ID" do
-        expect(page).to have_content(@invoice_1.id, count: 1)
-        expect(page).to_not have_content(@invoice_2.id)
+          expect(page).to have_content("Invoice ##{@invoice_1.id}", count: 1)
+          expect(page).to_not have_content(@invoice_2.id)
       end
 
       it "shows the invoice's status" do
@@ -48,7 +48,9 @@ RSpec.describe 'Admin Invoice Show Page', type: :feature do
       end
 
       it "shows the invoice's created_at date in the format 'Monday, July 18, 2019'" do
-        expect(page).to have_content(Date.today.strftime('%A, %e %b %Y'), count: 1)
+        within("#invoice-customer-info") do
+          expect(page).to have_content(Date.today.strftime('%A, %e %b %Y'), count: 1)
+        end
       end
 
       it "shows the invoice's Customer first and last name" do
