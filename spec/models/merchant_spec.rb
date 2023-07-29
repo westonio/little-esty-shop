@@ -34,5 +34,9 @@ RSpec.describe Merchant, type: :model do
       expect(@merchant2.invoices).to include(@invoice2)
       expect(@merchant2.invoices).not_to include(@invoice1)
     end
+
+    it "returns favorite customers" do
+      expect(@merchant1.favorite_customers.first).to eq()
+    end
   end
 end
