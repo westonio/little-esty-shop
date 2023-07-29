@@ -1,5 +1,5 @@
-<div class="page-title">Admin Merchants Index</div> 
+<%= render partial: "shared/admin_topper", locals: { merchants: true  } %>
 
 <% @merchants.each do |merchant| %>
-<%= merchant.name %>
+<p><%= link_to merchant.name, admin_merchant_path(merchant) %></p>
 <% end %>
