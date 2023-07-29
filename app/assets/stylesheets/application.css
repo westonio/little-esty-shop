@@ -69,12 +69,25 @@ nav a:hover {
   color: black;
 }
 
-.full-length-header {
+.full-length-header, .half-header {
   clear: both;
   border-top: solid;
   text-align: center;
   padding: 5px;
   background-color: #D8DAD3;
+}
+
+.right-half-div {
+  display: inline;
+  width: 45%;
+  float: right;
+}
+
+#admin-top-5-customers li {
+  font-size: 20px;
+  padding: 5px 0px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .admin-invoices {
