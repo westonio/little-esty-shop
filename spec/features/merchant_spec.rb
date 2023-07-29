@@ -163,6 +163,7 @@ describe "As a merchant," do
                 describe "And I see the item I just created displayed in the list of items." do
                   it "And I see my item was created with a default status of disabled." do
 
+
                     visit "/merchants/#{@merchant_1.id}/items/"
 
                     expect(page).to have_link("Create new item")
@@ -173,14 +174,13 @@ describe "As a merchant," do
 
                     fill_in "Name", with: "Peach"
                     fill_in "Description", with: "This is a peach"
-                    fill_in "Unit Price", with: 3
+                    fill_in "Unit price", with: 3
 
                     click_button "Submit"
-
-                    expect(current_path).to eq("/merchants/#{@merchant_1.id}/items/")
-                    expect(page).to have_content("Peach")
-                    expect(page).to have_content("This is a peach")
-                    expect(page).to have_content(3)
+                    
+                    expect(current_path).to eq("/merchants/#{@merchant_1.id}/items")
+                    expect(page).to have_link("Peach")
+                    expect(Item.last.status).to eq("disabled")
                   end
                 end
               end
