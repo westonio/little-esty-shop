@@ -47,5 +47,7 @@ RSpec.describe "Merchant Dashboard" do
     visit "/merchants/#{@m3.id}/dashboard"
 
     expect(page).to have_content("Favorite Customers")
+    
+    expect(page).to have_content(@m3.favorite_customers.first)
   end
 end
