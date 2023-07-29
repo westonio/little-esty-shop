@@ -40,7 +40,6 @@ RSpec.describe "Admin Merchants Index Page" do
 
       expect(@merchant_1.status).to eq("enabled")
       click_button "Disable #{@merchant_1.name}"
-
       @merchant_1.reload
       expect(@merchant_1.status).to eq("disabled")
 
