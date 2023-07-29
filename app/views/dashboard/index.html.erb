@@ -11,17 +11,37 @@
 <div class="seperator"></div>
 <div class="container"></div>
 
-<div class="item-sections-container">
-  <div class="ready-items">
-    <h2>Items Ready to Ship</h2>
+
+<div class="item-sections-header-container">
+
+  <div class="table_div">
+    <table class="table_css">
+      <thead>
+        <tr>
+          <th class="table_headers">Items Ready to Ship</th>
+        </tr>
+      </thead>
+      <tbody>
+      
+      </tbody>
+    </table>
   </div>
-  <div class="favorite-items">
-    <h2>Favorite Items</h2>
-    <div>
-    <ol start="1"><% @merchant.favorite_customers.each do |customer| %>
-      <li><%= customer.first_name %>&nbsp;<%= customer.last_name %> &nbsp; <%=customer.count%></li>
-    <%end%>
-    </ol>
-    </div>
+
+
+  <div class="table_div">
+    <table class="table_css">
+      <thead>
+        <tr>
+          <th class="table_headers">Favorite Customers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% counter = 0 %>
+        <% @merchant.favorite_customers.each do |customer| %>
+          <% counter += 1%>
+          <tr><td> <%=counter%>. <%= customer.first_name %>&nbsp;<%= customer.last_name %> -  &nbsp; <%=customer.count%>&nbsp;purchases</td></tr>
+        <%end%>
+      </tbody>
+    </table>
   </div>
 </div>
