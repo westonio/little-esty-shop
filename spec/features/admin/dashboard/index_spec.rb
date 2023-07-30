@@ -163,6 +163,9 @@ RSpec.describe 'Admin Dashboard (index)', type: :feature do
     it "displays the incomplete invoices in order by oldest to newest" do
       expect("Invoice # #{@invoice_1.id}").to appear_before("Invoice # #{@invoice_4.id}")
       expect("Invoice # #{@invoice_4.id}").to appear_before("Invoice # #{@invoice_5.id}")
+      expect("Invoice # #{@invoice_5.id}").to appear_before("Invoice # #{@invoice_7.id}")
+      expect("Invoice # #{@invoice_7.id}").to appear_before("Invoice # #{@invoice_8.id}")
+      expect("Invoice # #{@invoice_8.id}").to appear_before("Invoice # #{@invoice_9.id}")
     end
    end
   end
