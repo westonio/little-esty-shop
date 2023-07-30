@@ -5,4 +5,8 @@ class InvoiceItem < ApplicationRecord
   validates_presence_of :quantity, :unit_price, :status
 
   enum :status, { 'pending' => 0, 'packaged' => 1, 'shipped' => 2 }
+
+  def total_revenue
+    quantity * unit_price
+  end
 end
