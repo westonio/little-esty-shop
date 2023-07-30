@@ -13,7 +13,7 @@ RSpec.describe Merchant do
     @invoice_1 = @customer_1.invoices.create!(status: 1)
     @invoice_2 = @customer_1.invoices.create!(status: 1)
 
-    @invoice_item_1 = InvoiceItem.create!(item: @item_1, invoice: @invoice_1, quantity: 2, unit_price: 10, status: 0)
+    @invoice_item_1 = InvoiceItem.create!(item: @item_1, invoice: @invoice_1, quantity: 4, unit_price: 10, status: 0)
     @invoice_item_2 = InvoiceItem.create!(item: @item_1, invoice: @invoice_2, quantity: 1, unit_price: 20, status: 0)
   end
 
@@ -203,6 +203,15 @@ describe "As a merchant," do
           it "And I see the total revenue generated next to each item name" do
 
             visit merchant_items_path(@merchant_1)
+            require 'pry'; binding.pry
+
+            expect(page).to have_content("Top 5 items")
+            expect(@item_1.name).to_not appear_before("Top 5 items", only_text: true)
+            expect(@item_2.name).to_not appear_before(@item_1.name)
+
+            expect(page).to have_link(@item_1.name)
+            expect(page).to have_link(@item_2.name)
+
 
 
           end
