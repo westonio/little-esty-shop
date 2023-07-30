@@ -150,6 +150,20 @@ RSpec.describe 'Admin Dashboard (index)', type: :feature do
       expect(page).to have_link("Invoice # #{@invoice_8.id}", href: admin_invoice_path(@invoice_8), count: 1)
       expect(page).to have_link("Invoice # #{@invoice_9.id}", href: admin_invoice_path(@invoice_9), count: 1)
     end
+
+    it "For each Invoice, shows the date that the invoice was created - formatted 'Monday, July 18, 2019' " do
+      expect(page).to have_content(@invoice_1.created_at.strftime('%A, %e %b %Y'))
+      expect(page).to have_content(@invoice_4.created_at.strftime('%A, %e %b %Y'))
+      expect(page).to have_content(@invoice_5.created_at.strftime('%A, %e %b %Y'))
+      expect(page).to have_content(@invoice_7.created_at.strftime('%A, %e %b %Y'))
+      expect(page).to have_content(@invoice_8.created_at.strftime('%A, %e %b %Y'))
+      expect(page).to have_content(@invoice_9.created_at.strftime('%A, %e %b %Y'))
+    end
+
+    it "displays the incomplete invoices in order by oldest to newest" do
+      expect("Invoice # #{@invoice_1.id}").to appear_before("Invoice # #{@invoice_4.id}")
+      expect("Invoice # #{@invoice_4.id}").to appear_before("Invoice # #{@invoice_5.id}")
+    end
    end
   end
 end

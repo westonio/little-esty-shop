@@ -111,9 +111,25 @@ RSpec.describe Customer, type: :model do
     end
 
     it "Can find all incomplete Invoice IDs (not shipped or completed)" do
-      expected = [@invoice_1.id, @invoice_4.id, @invoice_5.id, @invoice_7.id, @invoice_8.id, @invoice_9.id]
+      incomplete = Customer.all_incomplete_invoices
       
-      expect(Customer.all_incomplete_invoices).to eq(expected)
+      expect(incomplete[0].id).to eq(@invoice_1.id)
+      expect(incomplete[1].id).to eq(@invoice_4.id)
+      expect(incomplete[2].id).to eq(@invoice_5.id)
+      expect(incomplete[3].id).to eq(@invoice_7.id)
+      expect(incomplete[4].id).to eq(@invoice_8.id)
+      expect(incomplete[5].id).to eq(@invoice_9.id)
+    end
+    
+    it "Can find all the incomplete invoice created_ats" do
+      incomplete = Customer.all_incomplete_invoices
+      
+      expect(incomplete[0].created_at).to eq(@invoice_1.created_at)
+      expect(incomplete[1].created_at).to eq(@invoice_4.created_at)
+      expect(incomplete[2].created_at).to eq(@invoice_5.created_at)
+      expect(incomplete[3].created_at).to eq(@invoice_7.created_at)
+      expect(incomplete[4].created_at).to eq(@invoice_8.created_at)
+      expect(incomplete[5].created_at).to eq(@invoice_9.created_at)
     end
   end
 end
