@@ -85,4 +85,16 @@ RSpec.describe "Merchant Dashboard" do
     expect(page).to have_content("Favorite Customers")
     expect(page).to have_content(@merchant_1.favorite_customers.first.first_name)
   end
+
+  # As a visitor or an admin user
+  # When I visit any page on the site
+  # I see the logo image at the top of every page
+
+  #37. Unsplash API: App Logo
+  #Note: You can choose which picture from Unsplash you'd like to be your app's logo. DO NOT save the image to your repo, but instead serve it up via the API.
+  # it "displays the logo image at the top of the page" do
+  #   visit "/merchants/#{@merchant_1.id}/dashboard"
+
+  #   expect(page.find('#site-logo')['https://unsplash.com/photos/c9FQyqIECds']).to have_content 'photo-1472851294608-062f824d29cc.png'
+  # end
 end
