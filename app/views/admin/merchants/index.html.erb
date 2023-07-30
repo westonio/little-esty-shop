@@ -1,10 +1,24 @@
 <%= render partial: "shared/admin_topper", locals: { merchants: true  } %>
 
-<% @merchants.each do |merchant| %>
-<p><%= link_to merchant.name, admin_merchant_path(merchant) %></p>
-<% if merchant.status == "enabled" %>
-  <%= button_to "Disable #{merchant.name}", admin_merchant_path(merchant), method: :patch, params: { merchant: { status: "disabled"}} %>
-<% else %>
-  <%= button_to "Enable #{merchant.name}", admin_merchant_path(merchant), method: :patch, params: { merchant: { status: "enabled"}} %>
+<div class="page-title">Admin Merchants Index</div> 
+
+
+<div id="enabled-merchants">
+  <h3>Enabled Merchants</h3>
+  <% @merchants.each do |merchant| %>
+    <% if merchant.status == "enabled" %>
+    <%= link_to merchant.name, admin_merchant_path(merchant) %>
+    <%= button_to "Disable #{merchant.name}", admin_merchant_path(merchant), method: :patch, params: { merchant: { status: "disabled"}} %>
+    <% end %>
   <% end %>
-<% end %>
+</div>
+
+<div id="disabled-merchants">
+  <h3>Disabled Merchants</h3>
+  <% @merchants.each do |merchant| %>
+    <% if merchant.status == "disabled" %>
+    <%= link_to merchant.name, admin_merchant_path(merchant) %>
+    <%= button_to "Enable #{merchant.name}", admin_merchant_path(merchant), method: :patch, params: { merchant: { status: "enabled"}} %>
+    <% end %>
+  <% end %>
+</div>
