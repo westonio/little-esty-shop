@@ -1,1 +1,10 @@
 <%= render partial: "shared/admin_topper", locals: { dashboard: true  } %>
+
+<div class="right-half-div" id="admin-top-5-customers">
+  <h3 class="half-header"> Top Customers </h3>
+  <ol>
+    <% @customers.top_five_with_most_success_transactions.each do |customer| %>
+      <li><%= "#{customer.first_name} #{customer.last_name} - #{customer.count} purchases" %></li>
+    <% end %>
+  </ol>
+</div>

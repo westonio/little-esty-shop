@@ -17,8 +17,8 @@ RSpec.describe 'Merchant Invoices Index' do
     @invoice1 = @customer1.invoices.create!(status: 1)
     @invoice2 = @customer1.invoices.create!(status: 1)
 
-    InvoiceItem.create!(item: @item1, invoice: @invoice1, quantity: 1, unit_price: 10, status: 0)
-    InvoiceItem.create!(item: @item2, invoice: @invoice2, quantity: 1, unit_price: 20, status: 0)
+    @invoice_item1 = InvoiceItem.create!(item: @item1, invoice: @invoice1, quantity: 1, unit_price: 10, status: 0)
+    @invoice_item2 = InvoiceItem.create!(item: @item2, invoice: @invoice2, quantity: 1, unit_price: 20, status: 0)
   end
 
   # User Story 15 Testing Begins
@@ -84,5 +84,63 @@ RSpec.describe 'Merchant Invoices Index' do
       expect(page).to_not have_content(number_to_currency(@item2.unit_price / 100.0))
       expect(page).to_not have_content(@item2.status)
     end
+    # User Story 16 Testing End
   end
+
+  # User Story 17 Testing Begins
+
+  # As a merchant
+  # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
+  # Then I see the total revenue that will be generated from all of my items on the invoice
+
+  it 'displays the total revenue generated from all of my items on the invoice' do
+    visit merchant_invoice_path(@merchant1, @invoice1)
+
+    expect(page).to have_content(number_to_currency(@invoice1.total_revenue / 100.0))
+    # User Story 17 Testing End
+  end
+
+  # User Story 18 Testing Begins
+
+  #   As a merchant
+  # When I visit my merchant invoice show page (/merchants/:merchant_id/invoices/:invoice_id)
+  # I see that each invoice item status is a select field
+  # And I see that the invoice item's current status is selected
+  # When I click this select field,
+  # Then I can select a new status for the Item,
+  # And next to the select field I see a button to "Update Item Status"
+  # When I click this button
+  # I am taken back to the merchant invoice show page
+  # And I see that my Item's status has now been updated
+
+  it 'each status field contains a dropdown select field with the current status selected' do
+    visit merchant_invoice_path(@merchant1, @invoice1)
+
+    @invoice1.invoice_items.each do |invoice_item|
+      expect(find("select[id='invoice_item_status_#{invoice_item.id}']").value).to eq invoice_item.status
+    end
+  end
+
+  it 'each status field contains a dropdown select field with all possible statuses' do
+    visit merchant_invoice_path(@merchant1, @invoice1)
+
+    @invoice1.invoice_items.each do |invoice_item|
+      dropdown_id = "invoice_item_status_#{invoice_item.id}"
+      InvoiceItem.statuses.keys.each do |status|
+        expect(page).to have_select(dropdown_id, with_options: [status])
+      end
+    end
+  end
+
+  it 'allows to change status of invoice item and updates it' do
+    visit merchant_invoice_path(@merchant1, @invoice1)
+    invoice_item = @invoice1.invoice_items.first
+    dropdown_id = "invoice_item_status_#{invoice_item.id}"
+    new_status = InvoiceItem.statuses.keys.reject { |status| status == invoice_item.status }.first
+    select new_status, from: dropdown_id
+    click_button 'Update Item Status'
+    expect(current_path).to eq(merchant_invoice_path(@merchant1, @invoice1))
+    expect(page).to have_select(dropdown_id, selected: new_status)
+  end
+  # User Story 18 Testing End
 end

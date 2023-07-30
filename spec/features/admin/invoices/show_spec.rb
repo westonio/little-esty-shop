@@ -37,19 +37,20 @@ RSpec.describe 'Admin Invoice Show Page', type: :feature do
 
     describe "I see information related to that invoice" do
       it "shows the invoice's ID" do
-        expect(page).to have_content(@invoice_1.id, count: 1)
-        expect(page).to_not have_content(@invoice_2.id)
+          expect(page).to have_content("Invoice ##{@invoice_1.id}", count: 1)
+          expect(page).to_not have_content(@invoice_2.id)
       end
 
       it "shows the invoice's status" do
         within("#invoice-customer-info") do
-          expect(page).to have_content(@invoice_1.status.capitalize, count: 1)
-          expect(page).to_not have_content(@invoice_2.status.capitalize)
+          expect(page).to have_content("Status: In Progress", count: 1)
         end
       end
 
       it "shows the invoice's created_at date in the format 'Monday, July 18, 2019'" do
-        expect(page).to have_content(Date.today.strftime('%A, %e %b %Y'), count: 1)
+        within("#invoice-customer-info") do
+          expect(page).to have_content(Date.today.strftime('%A, %e %b %Y'), count: 1)
+        end
       end
 
       it "shows the invoice's Customer first and last name" do
@@ -108,6 +109,46 @@ RSpec.describe 'Admin Invoice Show Page', type: :feature do
     describe "Then I see the total revenue that will be generated from this invoice." do
       it "shows the total revenue that will be generated from the invoice" do
         expect(page).to have_content("Total Revenue: $7,640.00")
+      end
+    end
+
+    describe "The invoice status is a select field" do
+      it "shows selected initially as the invoice's current status" do
+        within("#invoice-customer-info") do
+          expect(page).to have_select :status, selected: "In Progress"
+        end
+      end
+
+      it "when clicked, can select a new status for the Invoice" do
+        within("#invoice-customer-info") do
+          expect(page).to have_select :status, with_options: ["In Progress", "Cancelled", "Completed"]
+        end
+      end
+
+      it "has a button next to the select field 'Update Invoice'" do
+        within("#invoice-customer-info") do
+          expect(page).to have_button "Update Invoice"
+        end
+      end
+
+      it "once 'Update Invoice Status' is clicked, it redirects to the invoice page" do 
+        within("#invoice-customer-info") do
+          select "Cancelled", from: :status
+          click_button "Update Invoice"
+        end
+
+        expect(current_path).to eq(admin_invoice_path(@invoice_1))
+      end
+
+      it "when redirected, shows the updated invoice status" do
+        expect(page).to have_select :status, selected: "In Progress"
+
+        within("#invoice-customer-info") do
+          select "Cancelled", from: :status
+          click_button "Update Invoice"
+        end
+
+        expect(page).to have_select :status, selected: "Cancelled"
       end
     end
   end

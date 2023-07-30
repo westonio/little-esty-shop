@@ -1,7 +1,43 @@
-<%= render partial: "shared/visitor_topper", locals: { dashboard: true  } %>
+<div class="page-title">Merchant Dashboard</div>
 
-<h2><div class="page-title">Merchant Dashboard</div></h2>
+<div class="merchant_title">
+  <%= @merchant.name %>
+  <nav class="main-menu a:hover">
+    <%= link_to "My Items", merchant_items_path %>
+    <%= link_to "My Invoices", merchant_invoices_path %>
+  </nav>
+</div>
 
-<h3><%= @merchant.name %></h3>
-<p><%= link_to "My Items", merchant_items_path %><p>
-<p><%= link_to "My Invoices", merchant_invoices_path %></p>
+<div class="seperator"></div>
+<div class="container"></div>
+
+<div class="item-sections-header-container">
+  <div class="table_div">
+    <table class="table_css">
+      <thead>
+        <tr>
+          <th class="table_headers">Items Ready to Ship</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table_div">
+    <table class="table_css">
+      <thead>
+        <tr>
+          <th class="table_headers">Favorite Customers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% counter = 0 %>
+        <% @merchant.favorite_customers.each do |customer| %>
+          <% counter += 1%>
+          <tr><td> <%=counter%>. <%= customer.first_name %>&nbsp;<%= customer.last_name %> -  &nbsp; <%=customer.count%>&nbsp;purchases</td></tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</div>
