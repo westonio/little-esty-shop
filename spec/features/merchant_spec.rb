@@ -63,20 +63,10 @@ RSpec.describe Merchant do
                     click_link "Edit #{@item_1.name}"
 
                     expect(current_path).to eq("/merchants/#{@merchant_1.id}/items/#{@item_1.id}/edit")
-
-
+                    
                     expect(page).to have_field("Name", with: @item_1.name)
                     expect(page).to have_field("Description", with: @item_1.description)
                     expect(page).to have_field("Unit price", with: @item_1.unit_price)
-
-
-                    fill_in "Name", with: "Tomato"
-                    fill_in "Description", with: "This is a tomato"
-
-                    expect(page).to have_field('Name', with: @item_1.name)
-                    expect(page).to have_field('Description', with: @item_1.description)
-                    expect(page).to have_field('Unit price', with: @item_1.unit_price)
-
 
                     fill_in 'Name', with: 'Tomato'
                     fill_in 'Description', with: 'This is a tomato'
@@ -149,7 +139,46 @@ describe "As a merchant," do
 
           expect(@item_2.name).to_not appear_before("Disabled Items", only_text: true)
           expect(@item_3.name).to_not appear_before("Disabled Items", only_text: true)
-          
+
+        end
+      end
+    end
+  end
+
+  #11. Merchant Items Grouped by Status
+  describe "As a merchant" do
+    describe "When I visit my items index page" do
+      describe "I see a link to create a new item." do
+        describe "When I click on the link," do
+          describe "I am taken to a form that allows me to add item information." do
+            describe "When I fill out the form I click ‘Submit’" do
+              describe "Then I am taken back to the items index page" do
+                describe "And I see the item I just created displayed in the list of items." do
+                  it "And I see my item was created with a default status of disabled." do
+
+
+                    visit "/merchants/#{@merchant_1.id}/items/"
+
+                    expect(page).to have_link("Create new item")
+
+                    click_link("Create new item")
+
+                    expect(current_path).to eq("/merchants/#{@merchant_1.id}/items/new")
+
+                    fill_in "Name", with: "Peach"
+                    fill_in "Description", with: "This is a peach"
+                    fill_in "Unit price", with: 3
+
+                    click_button "Submit"
+                    
+                    expect(current_path).to eq("/merchants/#{@merchant_1.id}/items")
+                    expect(page).to have_link("Peach")
+                    expect(Item.last.status).to eq("disabled")
+                  end
+                end
+              end
+            end
+          end
         end
       end
     end

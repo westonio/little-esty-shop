@@ -1,6 +1,6 @@
 <div class="page-title">Admin Merchants Edit</div> 
 <br><br>
-<%= form_with(model: @merchant, url: admin_merchant_path(@merchant), local: true, data: { turbo: false }) do |f| %>
+<%= form_with(model: @merchant, url: admin_merchant_path(@merchant), local: true, data: { turbo: false }, params: { merchant: :name}) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.submit "Submit" %>
