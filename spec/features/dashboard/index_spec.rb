@@ -85,4 +85,10 @@ RSpec.describe "Merchant Dashboard" do
     expect(page).to have_content("Favorite Customers")
     expect(page).to have_content(@merchant_1.favorite_customers.first.first_name)
   end
+  #user story 4
+  it "displays a section for 'items ready to ship" do
+    visit "/merchants/#{@merchant_1.id}/dashboard"
+
+    expect(page).to have_content("Items Ready to Ship")
+  end
 end
