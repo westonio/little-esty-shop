@@ -23,10 +23,10 @@ RSpec.describe Customer, type: :model do
 
       @invoice_1 = @joey.invoices.create!()
       @invoice_2 = @joey.invoices.create!(status: 2)
-      @invoice_3 = @cecelia.invoices.create!()
+      @invoice_3 = @cecelia.invoices.create!(status: 1)
       @invoice_4 = @mariah.invoices.create!()
       @invoice_5 = @leanne.invoices.create!()
-      @invoice_6 = @sylvester.invoices.create!()
+      @invoice_6 = @sylvester.invoices.create!(status: 1)
       @invoice_7 = @heber.invoices.create!()
       @invoice_8 = @dejon.invoices.create!()
       @invoice_9 = @logan.invoices.create!()
@@ -108,6 +108,12 @@ RSpec.describe Customer, type: :model do
         expect(expected_results[3].count).to eq(2)
         expect(expected_results[4].count).to eq(2)
       end
+    end
+
+    it "Can find all incomplete Invoice IDs (not shipped or completed)" do
+      expected = [@invoice_1.id, @invoice_4.id, @invoice_5.id, @invoice_7.id, @invoice_8.id, @invoice_9.id]
+      
+      expect(Customer.all_incomplete_invoices).to eq(expected)
     end
   end
 end

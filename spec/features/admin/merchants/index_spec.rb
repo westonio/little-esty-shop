@@ -76,7 +76,7 @@ RSpec.describe "Admin Merchants Index Page" do
 
     expect("Enabled Merchants").to appear_before("Disabled Merchants")
 
-    save_and_open_page
+   
     within("#enabled-merchants") do
       expect(page).to have_content(@merchant_1.name)
       expect(page).to have_content(@merchant_2.name)

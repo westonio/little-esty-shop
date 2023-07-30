@@ -14,10 +14,10 @@ RSpec.describe 'Admin Dashboard (index)', type: :feature do
 
       @invoice_1 = @joey.invoices.create!()
       @invoice_2 = @joey.invoices.create!(status: 2)
-      @invoice_3 = @cecelia.invoices.create!()
+      @invoice_3 = @cecelia.invoices.create!(status: 1)
       @invoice_4 = @mariah.invoices.create!()
       @invoice_5 = @leanne.invoices.create!()
-      @invoice_6 = @sylvester.invoices.create!()
+      @invoice_6 = @sylvester.invoices.create!(status: 1)
       @invoice_7 = @heber.invoices.create!()
       @invoice_8 = @dejon.invoices.create!()
       @invoice_9 = @logan.invoices.create!()
@@ -117,6 +117,39 @@ RSpec.describe 'Admin Dashboard (index)', type: :feature do
         expect(page).to have_content("Cecelia Osinski - 2 purchases", count: 1)
         expect(page).to have_content("Leanne Kuhn - 2 purchases", count: 1)
       end
+   end
+
+   describe "Invomplete Invoices" do
+    it "has a section for listing all the 'Incomplete Invoices'" do
+      expect(page).to have_css(".left-half-div")
+      expect(page).to have_content("Incomplete Invoices", count: 1)
+    end
+
+    it "lists the ids  of invoices with items not shipped" do
+      expect(page).to_not have_content(@invoice_2.id, count: 1)
+      expect(page).to_not have_content(@invoice_3.id, count: 1)
+      expect(page).to_not have_content(@invoice_6.id, count: 1)
+
+      expect(page).to have_content(@invoice_1.id, count: 1)
+      expect(page).to have_content(@invoice_4.id, count: 1)
+      expect(page).to have_content(@invoice_5.id, count: 1)
+      expect(page).to have_content(@invoice_7.id, count: 1)
+      expect(page).to have_content(@invoice_8.id, count: 1)
+      expect(page).to have_content(@invoice_9.id, count: 1)
+    end
+
+    it "links to the show page for each invoices" do
+      expect(page).to_not have_link("Invoice # #{@invoice_2.id}", count: 1)
+      expect(page).to_not have_link("Invoice # #{@invoice_3.id}", count: 1)
+      expect(page).to_not have_link("Invoice # #{@invoice_6.id}", count: 1)
+
+      expect(page).to have_link("Invoice # #{@invoice_1.id}", count: 1)
+      expect(page).to have_link("Invoice # #{@invoice_4.id}", count: 1)
+      expect(page).to have_link("Invoice # #{@invoice_5.id}", count: 1)
+      expect(page).to have_link("Invoice # #{@invoice_7.id}", count: 1)
+      expect(page).to have_link("Invoice # #{@invoice_8.id}", count: 1)
+      expect(page).to have_link("Invoice # #{@invoice_9.id}", count: 1)
+    end
    end
   end
 end
