@@ -95,4 +95,19 @@ RSpec.describe "Merchant Dashboard" do
 
     expect(page).to have_content(@merchant_1.items.first.name) 
   end
+
+  it "has each invoice id as a link to the invoice show page" do
+    visit merchant_dashboard_index_path(@merchant_1)
+
+    click_link "My Items"
+    click_button "Enable Qui Esse"
+    
+    visit merchant_dashboard_index_path(@merchant_1)
+
+    expect(page).to have_content(@merchant_1.items.first.name)
+    expect(page).to have_link("#{@merchant_1.ready_to_ship.first.invoice_items.first.invoice_id}")
+
+    click_link "#{@merchant_1.ready_to_ship.first.invoice_items.first.invoice_id}"
+    expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@merchant_1.ready_to_ship.first.invoice_items.first.invoice_id}")
+  end
 end
