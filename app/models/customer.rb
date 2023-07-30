@@ -11,4 +11,8 @@ class Customer < ApplicationRecord
       .order("count DESC")
       .limit(5)
   end
+
+  def self.all_incomplete_invoices
+    Invoice.where(status: "in progress").order(:id).pluck(:id)
+  end
 end

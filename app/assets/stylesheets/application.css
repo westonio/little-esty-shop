@@ -75,6 +75,41 @@ nav a:hover {
   text-align: center;
   padding: 5px;
   background-color: #D8DAD3;
+  margin-bottom: 40px;
+}
+
+.left-half-div {
+  display: inline;
+  width: 45%;
+  float: left;
+}
+
+.right-half-div {
+  display: inline;
+  width: 45%;
+  float: right;
+}
+
+#admin-top-5-customers li {
+  font-size: 20px;
+  padding: 5px 0px;
+  margin-top: 10px;
+  margin-left: 40px;
+}
+
+#admin-incomplete-invoices a {
+  font-size: 20px;
+  padding: 5px 0px;
+  margin-top: 10px;
+  margin-left: 50px;
+}
+#admin-incomplete-invoices a {
+  text-decoration: none;
+}
+
+#admin-incomplete-invoices a:hover {
+  text-decoration: underline;
+  color: orange;
 }
 
 .right-half-div {
