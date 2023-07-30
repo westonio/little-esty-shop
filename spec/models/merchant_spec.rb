@@ -63,7 +63,7 @@ RSpec.describe Merchant, type: :model do
       @invoice_9 = @logan.invoices.create!()
 
 
-      @item_1 = @merchant_1.items.create!(name: "Qui Esse", description: "Nihil autem sit odio inventore deleniti. Est laudantium ratione distincti", unit_price: 75107)
+      @item_1 = @merchant_1.items.create!(name: "Qui Esse", description: "Nihil autem sit odio inventore deleniti. Est laudantium ratione distincti", unit_price: 75107, status: 1)
       @item_2 = @merchant_1.items.create!(name: "Autem Minima", description: "Sunt officia eum qui molestiae. Nesciunt quidem cupiditate reiciendis est commodi non.", unit_price: 67076)
       @item_3 = @merchant_1.items.create!(name: "Ea Voluptatum", description: "Voluptate aut labore qui illum tempore eius. Corrupti cum et rerum. Enim illum labore voluptatem dicta consequatur. Consequatur sunt consequuntur ut officiis.", unit_price: 32301)
       @item_4 = @merchant_1.items.create!(name: "Nemo Facere", description: "Numquam officiis reprehenderit eum ratione neque tenetur. Officia aut repudiandae eum at ipsum doloribus. Iure minus itaque similique. Ratione dicta alias", unit_price: 15925)
@@ -106,7 +106,7 @@ RSpec.describe Merchant, type: :model do
     end
 
     it "returns items ready to ship" do
-      expect(@merchant_2.ready_to_ship).to eq(@merchant_1)
+      expect(@merchant_1.ready_to_ship.first.name).to eq("Qui Esse")
     end
   end
 end
