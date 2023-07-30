@@ -240,3 +240,8 @@ ul {
   height: 30px;
   font-family: sans-serif;
 }
+
+.table_body_css {
+  text-align-last: center;
+  font-size: smaller;
+}
