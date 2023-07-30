@@ -65,14 +65,14 @@ RSpec.describe "Merchant Dashboard" do
   end
   #user story 1
   it "displays the name of each merchant" do
-    visit "/merchants/#{@merchant_1.id}/dashboard"
+    visit merchant_dashboard_index_path(@merchant_1)
 
     expect(page).to have_content(@merchant_1.name)
     expect(page).to_not have_content(@merchant_2.name)
   end
   #user story 2
   it "displays a link to merchant items index and merchant invoices index pages" do
-    visit "/merchants/#{@merchant_1.id}/dashboard"
+    visit merchant_dashboard_index_path(@merchant_1)
 
     expect(page).to have_link("My Items")
     expect(page).to have_link("My Invoices")
@@ -80,15 +80,19 @@ RSpec.describe "Merchant Dashboard" do
   end
   #user story 3
   it "displays the names of the top 5 customers" do
-    visit "/merchants/#{@merchant_1.id}/dashboard"
+    visit merchant_dashboard_index_path(@merchant_1)
 
     expect(page).to have_content("Favorite Customers")
     expect(page).to have_content(@merchant_1.favorite_customers.first.first_name)
   end
   #user story 4
-  it "displays a section for 'items ready to ship" do
-    visit "/merchants/#{@merchant_1.id}/dashboard"
+  it "displays a section for items ready to ship" do
+    visit merchant_dashboard_index_path(@merchant_1)
 
-    expect(page).to have_content("Items Ready to Ship")
+    click_link "My Items"
+    click_button "Enable Qui Esse"
+    visit merchant_dashboard_index_path(@merchant_1)
+
+    expect(page).to have_content(@merchant_1.items.first.name) 
   end
 end
