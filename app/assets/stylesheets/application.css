@@ -209,6 +209,33 @@ ul {
   background-color: #ffffffdb; /* Slightly darker than white for odd rows */
 }
 
+.item-sections-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 5px;
+  width: 100%;
+}
+
+.table_div {
+  width:100%;
+  padding: 20px;
+}
+
+.table_css {
+  width:100%
+}
+
+.item-sections-header-container th, td {
+  border: none !important;
+  background-color: white;
+  color: black;
+}
+
+.table_headers {
+  background-color: #e1e1e1 !important;
+}
+
 .invoice-select {
   height: 30px;
   font-family: sans-serif;
