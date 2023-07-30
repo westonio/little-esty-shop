@@ -275,3 +275,17 @@ ul {
   height: 30px;
   font-family: sans-serif;
 }
+
+.merchant-navbar-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#merchant-name {
+  margin-left: 20px; /* adjust as needed */
+}
+
+#nav_bar {
+  margin-right: 20px; /* adjust as needed */
+}
