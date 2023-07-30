@@ -22,7 +22,7 @@ RSpec.describe Merchant do
     describe 'When I visit my merchant items index page (merchants/:merchant_id/items)' do
       describe 'I see a list of the names of all of my items' do
         it 'And I do not see items for any other merchant' do
-          visit "merchants/#{@merchant_1.id}/items"
+          visit merchant_items_path(@merchant_1)
 
           @merchant_1_items = [@item_1, @item_2, @item_3]
 
@@ -41,11 +41,11 @@ RSpec.describe Merchant do
     describe 'When I click on the name of an item from the merchant items index page, (merchants/:merchant_id/items)' do
       describe "Then I am taken to that merchant's item's show page (/merchants/:merchant_id/items/:item_id)" do
         it "And I see all of the item's attributes including: Name, Description, and Current Selling Price" do
-          visit "merchants/#{@merchant_1.id}/items"
+          visit merchant_items_path(@merchant_1)
 
           click_link @item_1.name
 
-          expect(current_path).to eq("/merchants/#{@merchant_1.id}/items/#{@item_1.id}")
+          expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1))
 
           expect(page).to have_content(@item_1.name)
           expect(page).to have_content(@item_1.description)
@@ -65,11 +65,11 @@ RSpec.describe Merchant do
               describe 'When I update the information in the form and I click submit' do
                 describe 'Then I am redirected back to the item show page where I see the updated information' do
                   it 'And I see a flash message stating that the information has been successfully updated.' do
-                    visit "/merchants/#{@merchant_1.id}/items/#{@item_1.id}"
+                    visit merchant_item_path(@merchant_1, @item_1)
 
                     click_link "Edit #{@item_1.name}"
 
-                    expect(current_path).to eq("/merchants/#{@merchant_1.id}/items/#{@item_1.id}/edit")
+                    expect(current_path).to eq(edit_merchant_item_path(@merchant_1, @item_1))
 
                     expect(page).to have_field("Name", with: @item_1.name)
                     expect(page).to have_field("Description", with: @item_1.description)
@@ -86,7 +86,7 @@ RSpec.describe Merchant do
                     expect(@item_1.description).to eq('This is a tomato')
                     expect(@item_1.unit_price).to eq(1)
 
-                    expect(current_path).to eq("/merchants/#{@merchant_1.id}/items/#{@item_1.id}")
+                    expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1))
                     expect(page).to have_content("#{@item_1.name} has been updated!")
                   end
                 end
@@ -106,7 +106,7 @@ RSpec.describe Merchant do
           describe "Then I am redirected back to the items index" do
             it "And I see that the items status has changed" do
 
-              visit "/merchants/#{@merchant_1.id}/items"
+              visit merchant_items_path(@merchant_1)
 
               expect(page).to have_button("Enable #{@item_1.name}")
               expect(page).to have_button("Enable #{@item_2.name}")
@@ -117,7 +117,7 @@ RSpec.describe Merchant do
 
               @item_1.reload
 
-              expect(current_path).to eq("/merchants/#{@merchant_1.id}/items")
+              expect(current_path).to eq(merchant_items_path(@merchant_1))
               expect(page).to have_button("Disable #{@item_1.name}")
               expect(page).to have_button("Enable #{@item_2.name}")
               expect(page).to have_button("Enable #{@item_3.name}")
@@ -135,7 +135,7 @@ describe "As a merchant," do
     describe "Then I see two sections, one for Enabled Items and one for Disabled Items" do
         it "And I see that each Item is listed in the appropriate section" do
 
-          visit "/merchants/#{@merchant_1.id}/items"
+          visit merchant_items_path(@merchant_1)
 
           click_button("Enable #{@item_1.name}")
 
@@ -163,13 +163,13 @@ describe "As a merchant," do
                   it "And I see my item was created with a default status of disabled." do
 
 
-                    visit "/merchants/#{@merchant_1.id}/items/"
+                    visit merchant_items_path(@merchant_1)
 
                     expect(page).to have_link("Create new item")
 
                     click_link("Create new item")
 
-                    expect(current_path).to eq("/merchants/#{@merchant_1.id}/items/new")
+                    expect(current_path).to eq(new_merchant_item_path(@merchant_1))
 
                     fill_in "Name", with: "Peach"
                     fill_in "Description", with: "This is a peach"
@@ -177,7 +177,7 @@ describe "As a merchant," do
 
                     click_button "Submit"
 
-                    expect(current_path).to eq("/merchants/#{@merchant_1.id}/items")
+                    expect(current_path).to eq(merchant_items_path(@merchant_1))
                     expect(page).to have_link("Peach")
                     expect(Item.last.status).to eq("disabled")
                   end
@@ -204,7 +204,7 @@ describe "As a merchant," do
 
             visit merchant_items_path(@merchant_1)
 
-            
+
           end
         end
       end
