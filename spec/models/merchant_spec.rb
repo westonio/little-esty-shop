@@ -38,7 +38,7 @@ RSpec.describe Merchant, type: :model do
       expect(@merchant2.invoices).not_to include(@invoice1)
     end
   end
-  describe "user story 3" do
+  describe "user story 3 & 4" do
     before(:each) do
       @merchant_1 = Merchant.create!(name: "Schroeder-Jerde")
       @merchant_2 = Merchant.create!(name: "Klein, Rempel and Jones")
@@ -103,6 +103,10 @@ RSpec.describe Merchant, type: :model do
     end
     it "returns favorite customers" do
       expect(@merchant_1.favorite_customers.first.first_name).to eq(@joey.first_name)
+    end
+
+    it "returns items ready to ship" do
+      expect(@merchant_2.ready_to_ship).to eq(@merchant_1)
     end
   end
 end
