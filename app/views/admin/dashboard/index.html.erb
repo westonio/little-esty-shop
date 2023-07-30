@@ -11,7 +11,7 @@
   <h3 class="half-header"> Top Customers </h3>
   <ol>
     <% @customers.top_five_with_most_success_transactions.each do |customer| %>
-      <li><%= "#{customer.first_name} #{customer.last_name} - #{customer.count} purchases" %></li>
+      <li><%= "#{customer.first_name} #{customer.last_name} - #{customer.transaction_count} purchases" %></li>
     <% end %>
   </ol>
 </div>

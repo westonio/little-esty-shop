@@ -102,11 +102,11 @@ RSpec.describe Customer, type: :model do
       it "has a count for each customer" do
         expected_results = Customer.top_five_with_most_success_transactions
 
-        expect(expected_results[0].count).to eq(4)
-        expect(expected_results[1].count).to eq(3)
-        expect(expected_results[2].count).to eq(2)
-        expect(expected_results[3].count).to eq(2)
-        expect(expected_results[4].count).to eq(2)
+        expect(expected_results[0].transaction_count).to eq(4)
+        expect(expected_results[1].transaction_count).to eq(3)
+        expect(expected_results[2].transaction_count).to eq(2)
+        expect(expected_results[3].transaction_count).to eq(2)
+        expect(expected_results[4].transaction_count).to eq(2)
       end
     end
 
