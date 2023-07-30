@@ -279,4 +279,17 @@ ul {
 .table_body_css {
   text-align-last: center;
   font-size: smaller;
+
+.merchant-navbar-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#merchant-name {
+  margin-left: 20px; /* adjust as needed */
+}
+
+#nav_bar {
+  margin-right: 20px; /* adjust as needed */
 }
