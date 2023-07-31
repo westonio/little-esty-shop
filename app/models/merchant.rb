@@ -3,7 +3,7 @@ class Merchant < ApplicationRecord
 
   validates_presence_of :name, :status
 
-  enum :status, { "enabled" => 0, "disabled" => 1 }
+  enum :status, { "disabled" => 0, "enabled" => 1 }
 
   def invoices
     Invoice.joins(items: :merchant).where(items: { merchant: self }).distinct
