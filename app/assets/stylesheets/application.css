@@ -103,6 +103,11 @@ nav a:hover {
   margin-top: 10px;
   margin-left: 50px;
 }
+
+#admin-incomplete-invoices p {
+  font-size: 20px;
+}
+
 #admin-incomplete-invoices a {
   text-decoration: none;
 }
