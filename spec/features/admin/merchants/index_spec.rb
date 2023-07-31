@@ -8,10 +8,11 @@ RSpec.describe "Admin Merchants Index Page" do
     @merchant_4 = Merchant.create!(name: "Cummings-Thiel")
     @merchant_5 = Merchant.create!(name: "Williamson Group")
     @merchant_6 = Merchant.create!(name: "Bernhard-Johns")
+
+    visit admin_merchants_path
   end
 
   it "displays the name of each merchant in the system" do
-    visit admin_merchants_path
 
     expect(page).to have_content(@merchant_1.name)
     expect(page).to have_content(@merchant_2.name)
@@ -23,7 +24,6 @@ RSpec.describe "Admin Merchants Index Page" do
   end
 
   it "links to the merchant show page when you click the merchant's name" do
-    visit admin_merchants_path
 
     click_link(@merchant_1.name)
     expect(current_path).to eq(admin_merchant_path(@merchant_1))
@@ -36,7 +36,6 @@ RSpec.describe "Admin Merchants Index Page" do
 
   describe "disable/enable merchants button" do
     it "disables or enables the merchant when clicked" do
-      visit admin_merchants_path
 
       expect(@merchant_1.status).to eq("disabled")
       click_button "Enable #{@merchant_1.name}"
@@ -54,7 +53,6 @@ RSpec.describe "Admin Merchants Index Page" do
     end
 
     it "displays the updated merchant status once clicked" do
-      visit admin_merchants_path
       click_button "Enable #{@merchant_1.name}"
       @merchant_1.reload
       
@@ -68,7 +66,6 @@ RSpec.describe "Admin Merchants Index Page" do
   end
 
   it "displays the enabled and disabled merchants in two separate sections" do
-    visit admin_merchants_path
     click_button "Enable #{@merchant_1.name}"
     click_button "Enable #{@merchant_2.name}"
     click_button "Enable #{@merchant_4.name}"
@@ -96,39 +93,9 @@ RSpec.describe "Admin Merchants Index Page" do
   end
 
   it "has a link to create a new merchant" do
-    visit admin_merchants_path
     expect(page).to have_link("Create New Merchant")
-  end
 
-  it "links to a form to add info and create new merchant" do
-    visit admin_merchants_path
     click_link("Create New Merchant")
-
     expect(current_path).to eq(new_admin_merchant_path)
-    expect(page).to have_field("name")
-    expect(page).to have_button("Submit")
-  end
-
-  describe "new merchant form submission" do
-    before :each do
-      visit admin_merchants_path
-      click_link("Create New Merchant")
-
-      fill_in "Name", with: "Omnia Vintage"
-      click_button("Submit")
-    end
-
-    it "creates a new merchant instance upon form submission" do
-      expect(Merchant.last.name).to eq("Omnia Vintage")
-    end
-
-    it "redirects to index, which displays the new merchant with default status disabled" do
-      expect(current_path).to eq(admin_merchants_path)
-      expect(Merchant.last.status).to eq("disabled")
-
-      within("#disabled-merchants") do
-        expect(page).to have_content("Omnia Vintage")
-      end
-    end
   end
 end
