@@ -38,45 +38,48 @@ RSpec.describe "Admin Merchants Index Page" do
     it "disables or enables the merchant when clicked" do
       visit admin_merchants_path
 
-      expect(@merchant_1.status).to eq("enabled")
-      click_button "Disable #{@merchant_1.name}"
-      @merchant_1.reload
       expect(@merchant_1.status).to eq("disabled")
+      click_button "Enable #{@merchant_1.name}"
+      @merchant_1.reload
+      expect(@merchant_1.status).to eq("enabled")
 
 
       visit admin_merchants_path
 
-      expect(@merchant_2.status).to eq("enabled")
-      click_button "Disable #{@merchant_2.name}"
+      expect(@merchant_2.status).to eq("disabled")
+      click_button "Enable #{@merchant_2.name}"
 
       @merchant_2.reload
-      expect(@merchant_2.status).to eq("disabled")
+      expect(@merchant_2.status).to eq("enabled")
     end
 
-    it "displays the updated merchant status on once clicked" do
+    it "displays the updated merchant status once clicked" do
       visit admin_merchants_path
-      click_button "Disable #{@merchant_1.name}"
-      @merchant_1.reload
-      
-      expect(page).to have_button("Enable #{@merchant_1.name}")
-      
       click_button "Enable #{@merchant_1.name}"
       @merchant_1.reload
       
       expect(page).to have_button("Disable #{@merchant_1.name}")
+      
+      click_button "Disable #{@merchant_1.name}"
+      @merchant_1.reload
+      
+      expect(page).to have_button("Enable #{@merchant_1.name}")
     end
   end
 
   it "displays the enabled and disabled merchants in two separate sections" do
     visit admin_merchants_path
-    click_button "Disable #{@merchant_3.name}"
-    click_button "Disable #{@merchant_5.name}"
-    @merchant_3.reload
-    @merchant_5.reload
+    click_button "Enable #{@merchant_1.name}"
+    click_button "Enable #{@merchant_2.name}"
+    click_button "Enable #{@merchant_4.name}"
+    click_button "Enable #{@merchant_6.name}"
+    @merchant_1.reload
+    @merchant_2.reload
+    @merchant_4.reload
+    @merchant_6.reload
 
     expect("Enabled Merchants").to appear_before("Disabled Merchants")
 
-    save_and_open_page
     within("#enabled-merchants") do
       expect(page).to have_content(@merchant_1.name)
       expect(page).to have_content(@merchant_2.name)
@@ -84,10 +87,48 @@ RSpec.describe "Admin Merchants Index Page" do
       expect(page).to have_content(@merchant_6.name)
       expect(page).to_not have_content(@merchant_3.name)
     end
+
     within("#disabled-merchants") do
     expect(page).to have_content(@merchant_3.name)
     expect(page).to have_content(@merchant_5.name)
     expect(page).to_not have_content(@merchant_1.name)
+    end
+  end
+
+  it "has a link to create a new merchant" do
+    visit admin_merchants_path
+    expect(page).to have_link("Create New Merchant")
+  end
+
+  it "links to a form to add info and create new merchant" do
+    visit admin_merchants_path
+    click_link("Create New Merchant")
+
+    expect(current_path).to eq(new_admin_merchant_path)
+    expect(page).to have_field("name")
+    expect(page).to have_button("Submit")
+  end
+
+  describe "new merchant form submission" do
+    before :each do
+      visit admin_merchants_path
+      click_link("Create New Merchant")
+
+      fill_in "Name", with: "Omnia Vintage"
+      click_button("Submit")
+    end
+
+    it "creates a new merchant instance upon form submission" do
+      expect(Merchant.last.name).to eq("Omnia Vintage")
+    end
+
+    it "redirects to index, which displays the new merchant with default status disabled" do
+      expect(current_path).to eq(admin_merchants_path)
+      expect(Merchant.last.status).to eq("disabled")
+
+      within("#disabled-merchants") do
+        expect(page).to have_content("Omnia Vintage")
+      end
     end
   end
 end
