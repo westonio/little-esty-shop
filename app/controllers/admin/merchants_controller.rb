@@ -34,6 +34,7 @@ class Admin::MerchantsController < ApplicationController
     if @merchant.save
       redirect_to admin_merchants_path
     else
+      flash[:notice] = "Please enter a merchant name to continue."
       render "new"
     end
   end
