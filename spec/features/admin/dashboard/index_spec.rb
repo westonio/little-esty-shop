@@ -14,10 +14,10 @@ RSpec.describe 'Admin Dashboard (index)', type: :feature do
 
       @invoice_1 = @joey.invoices.create!()
       @invoice_2 = @joey.invoices.create!(status: 2)
-      @invoice_3 = @cecelia.invoices.create!()
+      @invoice_3 = @cecelia.invoices.create!(status: 1)
       @invoice_4 = @mariah.invoices.create!()
       @invoice_5 = @leanne.invoices.create!()
-      @invoice_6 = @sylvester.invoices.create!()
+      @invoice_6 = @sylvester.invoices.create!(status: 1)
       @invoice_7 = @heber.invoices.create!()
       @invoice_8 = @dejon.invoices.create!()
       @invoice_9 = @logan.invoices.create!()
@@ -71,7 +71,7 @@ RSpec.describe 'Admin Dashboard (index)', type: :feature do
     end
 
     it "I see a link to the admin merchants index (/admin/merchants)" do
-      expect(page).to have_link "Merchants"
+      expect(page).to have_link "Merchants", href: admin_merchants_path
 
       click_link "Merchants"
 
@@ -79,7 +79,7 @@ RSpec.describe 'Admin Dashboard (index)', type: :feature do
     end
 
     it "I see a link to the admin invoices index (/admin/invoices)" do
-      expect(page).to have_link "Invoices"
+      expect(page).to have_link "Invoices", href: admin_invoices_path
 
       click_link "Invoices"
       
@@ -89,7 +89,7 @@ RSpec.describe 'Admin Dashboard (index)', type: :feature do
     it "I see a link to the admin dashboard index(/admin)" do
       visit admin_invoices_path
       
-      expect(page).to have_link "Dashboard"
+      expect(page).to have_link "Dashboard", href: admin_path
 
       click_link "Dashboard"
       
@@ -117,6 +117,57 @@ RSpec.describe 'Admin Dashboard (index)', type: :feature do
         expect(page).to have_content("Cecelia Osinski - 2 purchases", count: 1)
         expect(page).to have_content("Leanne Kuhn - 2 purchases", count: 1)
       end
+    end
+   end
+
+   describe "Invomplete Invoices" do
+    it "has a section for listing all the 'Incomplete Invoices'" do
+      expect(page).to have_css(".left-half-div")
+      expect(page).to have_content("Incomplete Invoices", count: 1)
+    end
+
+    it "lists the ids  of invoices with items not shipped" do
+      expect(page).to_not have_content(@invoice_2.id, count: 1)
+      expect(page).to_not have_content(@invoice_3.id, count: 1)
+      expect(page).to_not have_content(@invoice_6.id, count: 1)
+
+      expect(page).to have_content(@invoice_1.id, count: 1)
+      expect(page).to have_content(@invoice_4.id, count: 1)
+      expect(page).to have_content(@invoice_5.id, count: 1)
+      expect(page).to have_content(@invoice_7.id, count: 1)
+      expect(page).to have_content(@invoice_8.id, count: 1)
+      expect(page).to have_content(@invoice_9.id, count: 1)
+    end
+
+    it "links to the show page for each invoices" do
+      expect(page).to_not have_link("Invoice # #{@invoice_2.id}", count: 1)
+      expect(page).to_not have_link("Invoice # #{@invoice_3.id}", count: 1)
+      expect(page).to_not have_link("Invoice # #{@invoice_6.id}", count: 1)
+
+      expect(page).to have_link("Invoice # #{@invoice_1.id}", href: admin_invoice_path(@invoice_1), count: 1)
+      expect(page).to have_link("Invoice # #{@invoice_4.id}", href: admin_invoice_path(@invoice_4), count: 1)
+      expect(page).to have_link("Invoice # #{@invoice_5.id}", href: admin_invoice_path(@invoice_5), count: 1)
+      expect(page).to have_link("Invoice # #{@invoice_7.id}", href: admin_invoice_path(@invoice_7), count: 1)
+      expect(page).to have_link("Invoice # #{@invoice_8.id}", href: admin_invoice_path(@invoice_8), count: 1)
+      expect(page).to have_link("Invoice # #{@invoice_9.id}", href: admin_invoice_path(@invoice_9), count: 1)
+    end
+
+    it "For each Invoice, shows the date that the invoice was created - formatted 'Monday, July 18, 2019' " do
+      expect(page).to have_content(@invoice_1.created_at.strftime('%A, %e %b %Y'))
+      expect(page).to have_content(@invoice_4.created_at.strftime('%A, %e %b %Y'))
+      expect(page).to have_content(@invoice_5.created_at.strftime('%A, %e %b %Y'))
+      expect(page).to have_content(@invoice_7.created_at.strftime('%A, %e %b %Y'))
+      expect(page).to have_content(@invoice_8.created_at.strftime('%A, %e %b %Y'))
+      expect(page).to have_content(@invoice_9.created_at.strftime('%A, %e %b %Y'))
+    end
+
+    it "displays the incomplete invoices in order by oldest to newest" do
+      expect("Invoice # #{@invoice_1.id}").to appear_before("Invoice # #{@invoice_4.id}")
+      expect("Invoice # #{@invoice_4.id}").to appear_before("Invoice # #{@invoice_5.id}")
+      expect("Invoice # #{@invoice_5.id}").to appear_before("Invoice # #{@invoice_7.id}")
+      expect("Invoice # #{@invoice_7.id}").to appear_before("Invoice # #{@invoice_8.id}")
+      expect("Invoice # #{@invoice_8.id}").to appear_before("Invoice # #{@invoice_9.id}")
+    end
    end
   end
 end

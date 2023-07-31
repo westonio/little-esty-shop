@@ -1,10 +1,17 @@
 <%= render partial: "shared/admin_topper", locals: { dashboard: true  } %>
 
+<div class="left-half-div" id="admin-incomplete-invoices">
+  <h3 class="half-header"> Incomplete Invoices </h3>
+  <% @customers.all_incomplete_invoices.each do |invoice| %>
+    <p><%= link_to "Invoice # #{invoice.id}", admin_invoice_path(invoice) %> - <%= invoice.created_at.strftime('%A, %e %b %Y') %></p>
+  <% end %>
+</div>
+
 <div class="right-half-div" id="admin-top-5-customers">
   <h3 class="half-header"> Top Customers </h3>
   <ol>
     <% @customers.top_five_with_most_success_transactions.each do |customer| %>
-      <li><%= "#{customer.first_name} #{customer.last_name} - #{customer.count} purchases" %></li>
+      <li><%= "#{customer.first_name} #{customer.last_name} - #{customer.transaction_count} purchases" %></li>
     <% end %>
   </ol>
 </div>

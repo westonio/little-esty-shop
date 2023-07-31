@@ -23,10 +23,10 @@ RSpec.describe Customer, type: :model do
 
       @invoice_1 = @joey.invoices.create!()
       @invoice_2 = @joey.invoices.create!(status: 2)
-      @invoice_3 = @cecelia.invoices.create!()
+      @invoice_3 = @cecelia.invoices.create!(status: 1)
       @invoice_4 = @mariah.invoices.create!()
       @invoice_5 = @leanne.invoices.create!()
-      @invoice_6 = @sylvester.invoices.create!()
+      @invoice_6 = @sylvester.invoices.create!(status: 1)
       @invoice_7 = @heber.invoices.create!()
       @invoice_8 = @dejon.invoices.create!()
       @invoice_9 = @logan.invoices.create!()
@@ -102,12 +102,34 @@ RSpec.describe Customer, type: :model do
       it "has a count for each customer" do
         expected_results = Customer.top_five_with_most_success_transactions
 
-        expect(expected_results[0].count).to eq(4)
-        expect(expected_results[1].count).to eq(3)
-        expect(expected_results[2].count).to eq(2)
-        expect(expected_results[3].count).to eq(2)
-        expect(expected_results[4].count).to eq(2)
+        expect(expected_results[0].transaction_count).to eq(4)
+        expect(expected_results[1].transaction_count).to eq(3)
+        expect(expected_results[2].transaction_count).to eq(2)
+        expect(expected_results[3].transaction_count).to eq(2)
+        expect(expected_results[4].transaction_count).to eq(2)
       end
+    end
+
+    it "Can find all incomplete Invoice IDs (not shipped or completed)" do
+      incomplete = Customer.all_incomplete_invoices
+      
+      expect(incomplete[0].id).to eq(@invoice_1.id)
+      expect(incomplete[1].id).to eq(@invoice_4.id)
+      expect(incomplete[2].id).to eq(@invoice_5.id)
+      expect(incomplete[3].id).to eq(@invoice_7.id)
+      expect(incomplete[4].id).to eq(@invoice_8.id)
+      expect(incomplete[5].id).to eq(@invoice_9.id)
+    end
+    
+    it "Can find all the incomplete invoice created_ats" do
+      incomplete = Customer.all_incomplete_invoices
+      
+      expect(incomplete[0].created_at).to eq(@invoice_1.created_at)
+      expect(incomplete[1].created_at).to eq(@invoice_4.created_at)
+      expect(incomplete[2].created_at).to eq(@invoice_5.created_at)
+      expect(incomplete[3].created_at).to eq(@invoice_7.created_at)
+      expect(incomplete[4].created_at).to eq(@invoice_8.created_at)
+      expect(incomplete[5].created_at).to eq(@invoice_9.created_at)
     end
   end
 end
