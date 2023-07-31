@@ -276,6 +276,10 @@ ul {
   font-family: sans-serif;
 }
 
+.table_body_css {
+  text-align-last: center;
+  font-size: smaller;
+
 .merchant-navbar-wrapper {
   display: flex;
   justify-content: space-between;

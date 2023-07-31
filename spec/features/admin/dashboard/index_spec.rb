@@ -117,6 +117,7 @@ RSpec.describe 'Admin Dashboard (index)', type: :feature do
         expect(page).to have_content("Cecelia Osinski - 2 purchases", count: 1)
         expect(page).to have_content("Leanne Kuhn - 2 purchases", count: 1)
       end
+    end
    end
 
    describe "Invomplete Invoices" do
