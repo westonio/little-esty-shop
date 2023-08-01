@@ -7,10 +7,10 @@ RSpec.describe 'Admin Invoice Show Page', type: :feature do
       @Cecelia = Customer.create!(first_name: 'Cecelia', last_name: 'Osinski')
       @Mariah = Customer.create!(first_name: 'Mariah', last_name: 'Toy')
 
-      @invoice_1 = @joey.invoices.create!()
-      @invoice_2 = @joey.invoices.create!(status: 2)
-      @invoice_3 = @Cecelia.invoices.create!()
-      @invoice_4 = @Mariah.invoices.create!()
+      @invoice_1 = @joey.invoices.create!(created_at: "2023-03-25 09:54:09 UTC")
+      @invoice_2 = @joey.invoices.create!(created_at: "2023-04-25 09:54:09 UTC", status: 2)
+      @invoice_3 = @Cecelia.invoices.create!(created_at: "2023-05-15 09:54:09 UTC")
+      @invoice_4 = @Mariah.invoices.create!(created_at: "2023-05-25 09:54:09 UTC")
 
       @merchant_1 = Merchant.create!(name: "Schroeder-Jerde")
       @merchant_2 = Merchant.create!(name: "Klein, Rempel and Jones")
@@ -49,7 +49,7 @@ RSpec.describe 'Admin Invoice Show Page', type: :feature do
 
       it "shows the invoice's created_at date in the format 'Monday, July 18, 2019'" do
         within("#invoice-customer-info") do
-          expect(page).to have_content(@invoice_1.created_at.strftime('%A, %e %b %Y'), count: 1)
+          expect(page).to have_content(@invoice_1.created_at.strftime('%A, %b %e %Y'), count: 1)
         end
       end
 

@@ -65,14 +65,14 @@ RSpec.describe "Merchant Dashboard" do
   end
   #user story 1
   it "displays the name of each merchant" do
-    visit "/merchants/#{@merchant_1.id}/dashboard"
+    visit merchant_dashboard_index_path(@merchant_1)
 
     expect(page).to have_content(@merchant_1.name)
     expect(page).to_not have_content(@merchant_2.name)
   end
   #user story 2
   it "displays a link to merchant items index and merchant invoices index pages" do
-    visit "/merchants/#{@merchant_1.id}/dashboard"
+    visit merchant_dashboard_index_path(@merchant_1)
 
     expect(page).to have_link("My Items")
     expect(page).to have_link("My Invoices")
@@ -80,21 +80,35 @@ RSpec.describe "Merchant Dashboard" do
   end
   #user story 3
   it "displays the names of the top 5 customers" do
-    visit "/merchants/#{@merchant_1.id}/dashboard"
+    visit merchant_dashboard_index_path(@merchant_1)
 
     expect(page).to have_content("Favorite Customers")
     expect(page).to have_content(@merchant_1.favorite_customers.first.first_name)
   end
 
-  # As a visitor or an admin user
-  # When I visit any page on the site
-  # I see the logo image at the top of every page
+  #user story 4
+  it "displays a section for items ready to ship" do
+    visit merchant_dashboard_index_path(@merchant_1)
 
-  #37. Unsplash API: App Logo
-  #Note: You can choose which picture from Unsplash you'd like to be your app's logo. DO NOT save the image to your repo, but instead serve it up via the API.
-  # it "displays the logo image at the top of the page" do
-  #   visit "/merchants/#{@merchant_1.id}/dashboard"
+    click_link "My Items"
+    click_button "Enable Qui Esse"
+    visit merchant_dashboard_index_path(@merchant_1)
 
-  #   expect(page.find('#site-logo')['https://unsplash.com/photos/c9FQyqIECds']).to have_content 'photo-1472851294608-062f824d29cc.png'
-  # end
+    expect(page).to have_content(@merchant_1.items.first.name) 
+  end
+
+  it "has each invoice id as a link to the invoice show page" do
+    visit merchant_dashboard_index_path(@merchant_1)
+
+    click_link "My Items"
+    click_button "Enable Qui Esse"
+    
+    visit merchant_dashboard_index_path(@merchant_1)
+
+    expect(page).to have_content(@merchant_1.items.first.name)
+    expect(page).to have_link("#{@merchant_1.ready_to_ship.first.invoice_items.first.invoice_id}")
+
+    click_link "#{@merchant_1.ready_to_ship.first.invoice_items.first.invoice_id}"
+    expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@merchant_1.ready_to_ship.first.invoice_items.first.invoice_id}")
+  end
 end

@@ -11,8 +11,8 @@ Rails.application.config.assets.version = "1.0"
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 Unsplash.configure do |config|
-  config.application_access_key = Rails.application.credentials.access_key
-  config.application_secret = Rails.application.credentials.secret_key
+  config.application_access_key = ENV["unsplash_access_key"]
+  config.application_secret = ENV["unsplash_secret_key"]
   config.application_redirect_uri = "https://little-esty-shop-2eor.onrender.com"
   config.utm_source = "little-esty-shop"
 end

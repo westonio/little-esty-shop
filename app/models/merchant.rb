@@ -4,7 +4,7 @@ class Merchant < ApplicationRecord
 
   validates_presence_of :name, :status
 
-  enum :status, { "enabled" => 0, "disabled" => 1 }
+  enum :status, { "disabled" => 0, "enabled" => 1 }
 
   def invoices
     Invoice.joins(items: :merchant).where(items: { merchant: self }).distinct
@@ -15,9 +15,14 @@ class Merchant < ApplicationRecord
     Customer.select("first_name, last_name, count(result)").joins(invoices: :transactions).where(transactions: {result: "success"}).where(invoices: {id: ids}).order(count: :desc).group("first_name, last_name").limit(5)
   end
 
-  def item_revenue
-    success_ids = invoices.joins(:transactions).where(transactions: {result: "success"}).pluck(:id)
-    Item.select('name, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue').joins(invoices: :invoice_items).where(invoices: {id: success_ids}).group(:name).order("total_revenue desc")
+  def ready_to_ship
+    invoice_ids = invoices.pluck(:id)
+    Item.joins(invoices: :invoice_items)
+                .where.not(invoice_items: { status: "shipped" })
+                .where.not(invoices: { status: "cancelled" })
+                .where(items: { status: "enabled" })
+                .where(invoices: { id: invoice_ids })
+                .distinct
   end
 end
 
