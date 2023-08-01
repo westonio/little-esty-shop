@@ -1,5 +1,6 @@
 class Merchant < ApplicationRecord
   has_many :items
+  has_many :invoices, through: :items
 
   validates_presence_of :name, :status
 
@@ -10,7 +11,7 @@ class Merchant < ApplicationRecord
   end
 
   def favorite_customers
-    ids = invoices.pluck(:id)   
+    ids = invoices.pluck(:id)
     Customer.select("first_name, last_name, count(result)").joins(invoices: :transactions).where(transactions: {result: "success"}).where(invoices: {id: ids}).order(count: :desc).group("first_name, last_name").limit(5)
   end
 
@@ -24,3 +25,4 @@ class Merchant < ApplicationRecord
                 .distinct
   end
 end
+
