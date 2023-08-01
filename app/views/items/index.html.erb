@@ -1,5 +1,10 @@
 <div class="page-title"><%= @merchant.name%></div>
 <br>
+<h2>"Top 5 items"</h2>
+<% @merchant.item_revenue.each do |item| %>
+  <%= item.name %>
+<% end %>
+<br>
 <h2>Enabled Items</h2>
   <% @merchant.items.each do |item| %>
     <% if item.status == "enabled" %>
