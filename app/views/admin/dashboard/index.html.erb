@@ -3,7 +3,7 @@
 <div class="left-half-div" id="admin-incomplete-invoices">
   <h3 class="half-header"> Incomplete Invoices </h3>
   <% @customers.all_incomplete_invoices.each do |invoice| %>
-    <p><%= link_to "Invoice # #{invoice.id}", admin_invoice_path(invoice) %> - <%= invoice.created_at.strftime('%A, %e %b %Y') %></p>
+    <p><%= link_to "Invoice # #{invoice.id}", admin_invoice_path(invoice) %> - <%= invoice.created_at.strftime('%A, %b %e %Y') %></p>
   <% end %>
 </div>
 
