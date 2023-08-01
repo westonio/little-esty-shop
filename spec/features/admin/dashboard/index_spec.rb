@@ -14,15 +14,15 @@ RSpec.describe 'Admin Dashboard (index)', type: :feature do
       @dejon = Customer.create!(first_name: 'Dejob', last_name: 'Hoppe')
       @logan = Customer.create!(first_name: 'Logan', last_name: 'Jenkins')
 
-      @invoice_1 = @joey.invoices.create!()
-      @invoice_2 = @joey.invoices.create!(status: 2)
-      @invoice_3 = @cecelia.invoices.create!(status: 1)
-      @invoice_4 = @mariah.invoices.create!()
-      @invoice_5 = @leanne.invoices.create!()
-      @invoice_6 = @sylvester.invoices.create!(status: 1)
-      @invoice_7 = @heber.invoices.create!()
-      @invoice_8 = @dejon.invoices.create!()
-      @invoice_9 = @logan.invoices.create!()
+      @invoice_1 = @joey.invoices.create!(created_at: "2023-03-25 09:54:09 UTC")
+      @invoice_2 = @joey.invoices.create!(created_at: "2023-04-25 09:54:09 UTC", status: 2)
+      @invoice_3 = @cecelia.invoices.create!(created_at: "2023-05-15 09:54:09 UTC", status: 1)
+      @invoice_4 = @mariah.invoices.create!(created_at: "2023-05-25 09:54:09 UTC")
+      @invoice_5 = @leanne.invoices.create!(created_at: "2023-05-27 09:54:09 UTC")
+      @invoice_6 = @sylvester.invoices.create!(created_at: "2023-06-05 09:54:09 UTC", status: 1)
+      @invoice_7 = @heber.invoices.create!(created_at: "2023-06-23 09:54:09 UTC")
+      @invoice_8 = @dejon.invoices.create!(created_at: "2023-07-15 09:54:09 UTC")
+      @invoice_9 = @logan.invoices.create!(created_at: "2023-07-25 09:54:09 UTC")
 
       @merchant_1 = Merchant.create!(name: "Schroeder-Jerde")
       @merchant_2 = Merchant.create!(name: "Klein, Rempel and Jones")
@@ -154,12 +154,14 @@ RSpec.describe 'Admin Dashboard (index)', type: :feature do
       end
 
       it "For each Invoice, shows the date that the invoice was created - formatted 'Monday, July 18, 2019' " do
-        expect(page).to have_content(@invoice_1.created_at.strftime('%A, %e %b %Y'))
-        expect(page).to have_content(@invoice_4.created_at.strftime('%A, %e %b %Y'))
-        expect(page).to have_content(@invoice_5.created_at.strftime('%A, %e %b %Y'))
-        expect(page).to have_content(@invoice_7.created_at.strftime('%A, %e %b %Y'))
-        expect(page).to have_content(@invoice_8.created_at.strftime('%A, %e %b %Y'))
-        expect(page).to have_content(@invoice_9.created_at.strftime('%A, %e %b %Y'))
+        within("#admin-incomplete-invoices") do
+          expect(page).to have_content("- #{@invoice_1.created_at.strftime('%A, %b %e %Y')}")
+          expect(page).to have_content("- #{@invoice_4.created_at.strftime('%A, %b %e %Y')}")
+          expect(page).to have_content("- #{@invoice_5.created_at.strftime('%A, %b %e %Y')}")
+          expect(page).to have_content("- #{@invoice_7.created_at.strftime('%A, %b %e %Y')}")
+          expect(page).to have_content("- #{@invoice_8.created_at.strftime('%A, %b %e %Y')}")
+          expect(page).to have_content("- #{@invoice_9.created_at.strftime('%A, %b %e %Y')}")
+        end
       end
 
       it "displays the incomplete invoices in order by oldest to newest" do
