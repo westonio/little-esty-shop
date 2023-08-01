@@ -61,7 +61,6 @@ group :development, :test do
   gem "simplecov"
   gem "launchy"
   gem "faker"
-  gem "unsplash"
 end
 
 group :development do
