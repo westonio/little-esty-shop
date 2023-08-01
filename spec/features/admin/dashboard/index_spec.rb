@@ -121,7 +121,7 @@ RSpec.describe 'Admin Dashboard (index)', type: :feature do
       end
     end
 
-    describe "Invomplete Invoices" do
+    describe "Incomplete Invoices" do
       it "has a section for listing all the 'Incomplete Invoices'" do
         expect(page).to have_css(".left-half-div")
         expect(page).to have_content("Incomplete Invoices", count: 1)
@@ -132,12 +132,12 @@ RSpec.describe 'Admin Dashboard (index)', type: :feature do
         expect(page).to_not have_content(@invoice_3.id, count: 1)
         expect(page).to_not have_content(@invoice_6.id, count: 1)
 
-        expect(page).to have_content(@invoice_1.id, count: 1)
-        expect(page).to have_content(@invoice_4.id, count: 1)
-        expect(page).to have_content(@invoice_5.id, count: 1)
-        expect(page).to have_content(@invoice_7.id, count: 1)
-        expect(page).to have_content(@invoice_8.id, count: 1)
-        expect(page).to have_content(@invoice_9.id, count: 1)
+        expect(page).to have_content("Invoice # #{@invoice_1.id}", count: 1)
+        expect(page).to have_content("Invoice # #{@invoice_4.id}", count: 1)
+        expect(page).to have_content("Invoice # #{@invoice_5.id}", count: 1)
+        expect(page).to have_content("Invoice # #{@invoice_7.id}", count: 1)
+        expect(page).to have_content("Invoice # #{@invoice_8.id}", count: 1)
+        expect(page).to have_content("Invoice # #{@invoice_9.id}", count: 1)
       end
 
       it "links to the show page for each invoices" do
@@ -204,27 +204,18 @@ RSpec.describe 'Admin Dashboard (index)', type: :feature do
         end
       end
     end
-  end
-end
 
-      # User Story 39
-      # As a visitor or an admin user
-      # When I visit a Merchant's Dashboard (/merchants/:merchant_id/dashboard)
-      # I see a random photo near the name of the Merchant
-      # This photo should update to a new random photo each time the page is refreshed.
+    describe 'api stories' do
+      it 'displays a random photo next to the name of the merchant on each refresh' do
+        visit admin_merchant_path(@merchant_1)
 
-      describe 'api stories' do
-        it 'displays a random photo next to the name of the merchant on each refresh' do
+        if page.has_css?('img.random-merchant-image')
+          first_image = find('img.random-merchant-image')['src']
           visit admin_merchant_path(@merchant_1)
-
-          if page.has_css?('img.random-merchant-image')
-            first_image = find('img.random-merchant-image')['src']
-            visit admin_merchant_path(@merchant_1)
-            second_image = find('img.random-merchant-image')['src']
-            expect(first_image).to_not eq(second_image)
-          else
-            expect(page).to have_content('Rate Limit Exceeded')
-          end
+          second_image = find('img.random-merchant-image')['src']
+          expect(first_image).to_not eq(second_image)
+        else
+          expect(page).to have_content('Rate Limit Exceeded')
         end
       end
     end
