@@ -93,7 +93,7 @@ RSpec.describe "Merchant Dashboard" do
     click_button "Enable Qui Esse"
     visit merchant_dashboard_index_path(@merchant_1)
 
-    expect(page).to have_content(@merchant_1.items.first.name) 
+    expect(page).to have_content(@merchant_1.items.first.name)
   end
 
   it "has each invoice id as a link to the invoice show page" do
@@ -101,7 +101,7 @@ RSpec.describe "Merchant Dashboard" do
 
     click_link "My Items"
     click_button "Enable Qui Esse"
-    
+
     visit merchant_dashboard_index_path(@merchant_1)
 
     expect(page).to have_content(@merchant_1.items.first.name)
@@ -109,5 +109,27 @@ RSpec.describe "Merchant Dashboard" do
 
     click_link "#{@merchant_1.ready_to_ship.first.invoice_items.first.invoice_id}"
     expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@merchant_1.ready_to_ship.first.invoice_items.first.invoice_id}")
+  end
+
+  # User Story 39
+  # As a visitor or an admin user
+  # When I visit a Merchant's Dashboard (/merchants/:merchant_id/dashboard)
+  # I see a random photo near the name of the Merchant
+  # This photo should update to a new random photo each time the page is refreshed.
+
+  describe 'api stories' do
+    it 'displays a random photo next to the name of the merchant on each refresh' do
+      visit merchant_dashboard_index_path(@merchant_1)
+
+
+      if page.has_css?('img.random-merchant-image')
+        first_image = find('img.random-merchant-image')['src']
+        visit merchant_dashboard_index_path(@merchant_1)
+        second_image = find('img.random-merchant-image')['src']
+        expect(first_image).to_not eq(second_image)
+      else
+        expect(page).to have_content('Rate Limit Exceeded')
+      end
+    end
   end
 end

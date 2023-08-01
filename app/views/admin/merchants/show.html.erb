@@ -1,8 +1,11 @@
 <%= render partial: "shared/admin_topper", locals: { merchants: true  } %>
-
-<div class="page-title">Admin Merchants Show</div> 
-
+<div class="page-title">Admin Merchants Show</div>
 <p><%= @merchant.name %></p>
-
+<div id="random-merchant-image">
+  <% if random_image %>
+    <%= image_tag random_image.urls.small, alt: "Random Image", size: "100x100", class: "random-merchant-image" %>
+  <% else %>
+    <p>Rate Limit Exceeded</p>
+  <% end %>
+</div>
 <p><%= link_to "Update Merchant", edit_admin_merchant_path(@merchant) %></p>
-
