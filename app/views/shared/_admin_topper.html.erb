@@ -1,6 +1,14 @@
 <header>
   <%= link_to "Little Esty Shop", root_path, style: "text-decoration: none; color: black;" %>
 </header>
+
+<div id="app-logo" >
+  <%= image_tag logo_image[:urls][:small_s3] %>
+  <p>Photo Credit: <%= logo_image[:user][:name] %></p> 
+  <p>Likes: <%= logo_image[:likes] %></p> 
+</div>
+
+
 <div class="page-topper">
   <h2 id="merchant-admin-name">Admin Dashboard</h2>
   <nav id="nav_bar">
