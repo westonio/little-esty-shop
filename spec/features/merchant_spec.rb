@@ -235,15 +235,15 @@ describe "As a merchant," do
           @dejon = Customer.create!(first_name: 'Dejob', last_name: 'Hoppe')
           @logan = Customer.create!(first_name: 'Logan', last_name: 'Jenkins')
 
-          @invoice_1 = @joey.invoices.create!()
-          @invoice_2 = @joey.invoices.create!(status: 2)
-          @invoice_3 = @cecelia.invoices.create!(status: 1)
-          @invoice_4 = @mariah.invoices.create!()
-          @invoice_5 = @leanne.invoices.create!()
-          @invoice_6 = @sylvester.invoices.create!(status: 1)
-          @invoice_7 = @heber.invoices.create!()
-          @invoice_8 = @dejon.invoices.create!()
-          @invoice_9 = @logan.invoices.create!()
+          @invoice_1 = @joey.invoices.create!(created_at: "2012-03-25 09:54:09 UTC")
+          @invoice_2 = @joey.invoices.create!(created_at: "2012-03-12 05:54:09 UTC", status: 2)
+          @invoice_3 = @cecelia.invoices.create!(created_at: "2012-03-24 15:54:10 UTC", status: 1)
+          @invoice_4 = @mariah.invoices.create!(created_at: "2012-03-07 19:54:10 UTC")
+          @invoice_5 = @leanne.invoices.create!(created_at: "2012-03-09 01:54:10 UTC")
+          @invoice_6 = @sylvester.invoices.create!(created_at: "2012-03-13 16:54:10 UTC", status: 1)
+          @invoice_7 = @heber.invoices.create!(created_at: "2012-03-07 12:54:10 UTC")
+          @invoice_8 = @dejon.invoices.create!(created_at: "2012-03-06 21:54:10 UTC")
+          @invoice_9 = @logan.invoices.create!(created_at: "2012-03-08 20:54:10 UTC")
 
           @merchant_1 = Merchant.create!(name: "Schroeder-Jerde")
           @merchant_2 = Merchant.create!(name: "Klein, Rempel and Jones")
@@ -286,15 +286,27 @@ describe "As a merchant," do
           @transaction_17 = @invoice_9.transactions.create!(credit_card_number: 4504301557459341, credit_card_expiration_date: "04/27", result: "success")
           @transaction_17 = @invoice_9.transactions.create!(credit_card_number: 4504301557459341, credit_card_expiration_date: "04/27", result: "success")
 
+
           visit merchant_items_path(@merchant_1)
 
           expect(page).to have_content("Top Selling Items for #{@merchant_1.name}")
-          expect(page).to have_content("2023-08-02")
           expect(@item_2.name).to_not appear_before("Top Selling Items for #{@merchant_1.name}", only_text: true)
+          expect(@item_1.name).to_not appear_before(@item_2.name)
           expect(@item_1.name).to_not appear_before(@item_2.name)
           expect(@item_5.name).to_not appear_before(@item_2.name)
           expect(@item_3.name).to_not appear_before(@item_5.name)
           expect(@item_6.name).to_not appear_before(@item_5.name)
+
+          expect("$3,500.00").to_not appear_before("$4,140.00")
+          expect("$3,050.00").to_not appear_before("$3,500.00")
+          expect("$1,600.00").to_not appear_before("$3,050.00")
+          expect("$600.00").to_not appear_before("$1,600.00")
+
+          expect("2012-03-25").to_not appear_before("2012-03-12")
+          expect("2012-03-13").to_not appear_before("2012-03-25")
+          expect("2012-03-24").to_not appear_before("2012-03-13")
+          expect("2012-03-07").to_not appear_before("2012-03-24")
+
         end
       end
     end
