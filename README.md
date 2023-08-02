@@ -1,41 +1,46 @@
 # Little Esty Shop
+[View Little Esty Shop on Render](https://little-esty-shop-2eor.onrender.com)</br>
+[GitHub Repo](https://github.com/dani-wilson/little-shop-7)</br>
+[Project Board](https://github.com/users/dani-wilson/projects/1/views/1)</br>
+[DTR](https://docs.google.com/document/d/18CGzpk3BkyZg5YpdPMxbpHUknkzi0l6R9XArprEHNfI/edit)
 
-## Background and Description
+## Table of Contents
+- [Summary of Work Completed](#summary-of-work-completed)
+- [Contributors](#contributors)
+- [Potential Refactoring](#ideas-for-potential-refactor)
+</br></br>
 
-"Little Esty Shop" is a group project that requires students to build a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices.
 
-## Learning Goals
-- Practice designing a normalized database schema and defining model relationships
-- Utilize advanced routing techniques including namespacing to organize and group like functionality together.
-- Utilize advanced active record techniques to perform complex database queries
-- Practice consuming a public API while utilizing POROs as a way to apply OOP principles to organize code
+<h3 align="center">Description</h3>
 
-## Requirements
-- Must use Rails 7.0.x, Ruby 3.2.2
-- Must use PostgreSQL
-- All code must be tested via feature tests and model tests, respectively
-- Must use GitHub branching, team code reviews via GitHub PR comments, and either GitHub Projects or a project management tool of your group's choice (Trello, Notion, etc.)
-- Must include a thorough README to describe the project
-   - README should include a basic description of the project, a summary of the work completed, and some ideas for a potential contributor to work on/refactor next. Also include the names and GitHub links of all student contributors on your project. 
-- Must deploy completed code to the internet (using Heroku or Render)
-- Continuous Integration / Continuous Deployment is not allowed
-- Use of scaffolding is not allowed
-- Any gems added to the project must be approved by an instructor
-  - Pre-approved gems are `capybara, pry, faker, factory_bot_rails, orderly, simplecov, shoulda-matchers, launchy`
+<p align="center">
+  "Little Esty Shop" is a group project that requires students to build a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices.
+</p></br>
 
-## Setup
+## Summary of Work Completed
+This project was originally designed with 6 specific categories:
+<li>Merchant Dashboard</li> 
+<li>Merchant Items</li> 
+<li>Merchant Invoices</li> 
+<li>Admin Dashboard</li> 
+<li>Admin Merchants</li> 
+<li>Admin Invoices</li> 
+</br>
+with an additional section for the familiarization of APIs, containing four user stories.</br></br>
+Ample time was spent on the initial database design & setup, as well as the Render deployment. Then, the first six sections were divided up between each group member, and 2/4 of the API stories were completed as a team.</br>
 
-* Fork this repository
-* Clone your fork
-* From the command line, install gems and set up your DB:
-    * `bundle`
-    * `rails db:create`
-* Run the test suite with `bundle exec rspec`.
-* Run your development server with `rails s` to see the app in action.
 
-## Phases
+## Contributors
+[Anna Wiley](https://github.com/awiley33)</br>
+[Weston Schutt](https://github.com/westonio)</br>
+[Dani Rae Wilson](https://github.com/dani-wilson)</br>
+[Mike Wood](https://github.com/MWoodshop)</br>
+[Matthew Lim](https://github.com/MatthewTLim)
 
-1. [Database Setup](./doc/db_setup.md)
-1. [User Stories](./doc/user_stories.md)
-1. [Extensions](./doc/extensions.md)
-1. [Evaluation](./doc/evaluation.md)
+## Ideas for Potential Refactor
+~Ideas for refactoring HERE!!!~</br>
+        <(^_^)></br>
+
+
+
+[back to top](#little-esty-shop)

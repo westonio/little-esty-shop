@@ -1,5 +1,6 @@
 class Merchant < ApplicationRecord
   has_many :items
+  has_many :invoices, through: :items
 
   validates_presence_of :name, :status
 
@@ -20,6 +21,15 @@ class Merchant < ApplicationRecord
                 .limit(5)
   end
 
+  def self.top_merchants
+    Merchant.select('merchants.name, merchants.id, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
+    .joins(items: { invoice_items: { invoice: :transactions } })
+    .where(transactions: {result: "success"})
+    .group('merchants.id')
+    .order('total_revenue DESC')
+    .limit(5)
+  end
+
   def ready_to_ship
     invoice_ids = invoices.pluck(:id)
     Invoice.select("items.name, invoices.id, invoices.created_at")
@@ -32,3 +42,4 @@ class Merchant < ApplicationRecord
                 .distinct
   end
 end
+
