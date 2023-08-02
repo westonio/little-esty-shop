@@ -6,8 +6,8 @@ class Item < ApplicationRecord
   validates_presence_of :name, :description, :unit_price, :description, :status
 
   enum :status, { 'disabled' => 0, 'enabled' => 1 }
-end
 
-def self.item_revenue
-  where(merchant_id: merchant.id).sum('unit_price')
+  def self.item_revenue(merchant_id)
+    where(merchant_id:).sum('unit_price')
+  end
 end
