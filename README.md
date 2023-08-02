@@ -38,8 +38,11 @@ Ample time was spent on the initial database design & setup, as well as the Rend
 [Matthew Lim](https://github.com/MatthewTLim)
 
 ## Ideas for Potential Refactor
-~Ideas for refactoring HERE!!!~</br>
-        <(^_^)></br>
+- Making a single, cohesive test-data block that could be used across the testing suite
+- Adding more sad path testing and exploring more edge cases
+- More consistent styling across all page views
+- Agreeing upon convention to do with 'describe' and 'it' blocks in rspec testing
+- Making ActiveRecord queries more compact wherever possible
 
 
 
