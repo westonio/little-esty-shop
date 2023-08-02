@@ -13,6 +13,8 @@ class Customer < ApplicationRecord
   end
 
   def self.all_incomplete_invoices
+
     Invoice.select("id, created_at").where(status: "in progress").order(created_at: :asc)
+
   end
 end
