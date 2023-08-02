@@ -103,9 +103,10 @@ RSpec.describe Merchant, type: :model do
       expect(@merchant_1.favorite_customers.first.first_name).to eq(@joey.first_name)
     end
   end
+
   describe "class methods" do
     before do
-      @merchant_1 = Merchant.create!(name: "Schroeder-Jerde")
+    @merchant_1 = Merchant.create!(name: "Schroeder-Jerde")
     @merchant_2 = Merchant.create!(name: "Klein, Rempel and Jones")
     @merchant_3 = Merchant.create!(name: "Willms and Sons")
     @merchant_4 = Merchant.create!(name: "Cummings-Thiel")
