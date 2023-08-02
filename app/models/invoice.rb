@@ -15,4 +15,5 @@ class Invoice < ApplicationRecord
   def total_revenue
     InvoiceItem.where(invoice_id: self.id).sum("quantity*unit_price")
   end
+  
 end
