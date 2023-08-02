@@ -165,7 +165,6 @@ RSpec.describe "Admin Merchants Index Page" do
     expect(page).to have_content(@merchant_4.name)
     expect(page).to have_content(@merchant_5.name)
     expect(page).to have_content(@merchant_6.name)
-    save_and_open_page
     end
   end
 
