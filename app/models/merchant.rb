@@ -25,6 +25,11 @@ class Merchant < ApplicationRecord
                 .distinct
   end
 
+  def item_revenue
+    success_ids = invoices.joins(:transactions).where(transactions: {result: "success"}).pluck(:id)
+    Item.select('name, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue').joins(invoices: :invoice_items).where(invoices: {id: success_ids}).group(:name).order("total_revenue desc")
+  end
+
   def top_selling_dates_for_items
     items
       .select("items.*, COUNT(*) as sales_count, MAX(invoices.created_at) as top_selling_date")

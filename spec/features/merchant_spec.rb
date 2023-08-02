@@ -267,10 +267,10 @@ describe "As a merchant," do
             @transaction_17 = @invoice_9.transactions.create!(credit_card_number: 4504301557459341, credit_card_expiration_date: "04/27", result: "success")
 
             visit merchant_items_path(@merchant_1)
-
+            save_and_open_page
             expect(page).to have_content("Top 5 items")
-            expect(@item_1.name).to_not appear_before("Top 5 items", only_text: true)
-            expect(@item_2.name).to_not appear_before(@item_1.name)
+            expect(@item_2.name).to_not appear_before("Top 5 items", only_text: true)
+            expect(@item_1.name).to_not appear_before(@item_2.name)
 
             expect(page).to have_link(@item_1.name)
             expect(page).to have_link(@item_2.name)
