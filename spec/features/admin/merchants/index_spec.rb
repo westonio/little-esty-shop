@@ -83,6 +83,7 @@ RSpec.describe "Admin Merchants Index Page" do
     within("#disabled-merchants") do
       click_link(@merchant_1.name)
     end
+    
     expect(current_path).to eq(admin_merchant_path(@merchant_1))
 
     visit admin_merchants_path
@@ -102,6 +103,7 @@ RSpec.describe "Admin Merchants Index Page" do
 
 
       visit admin_merchants_path
+
       expect(@merchant_2.status).to eq("disabled")
       click_button "Enable #{@merchant_2.name}"
 

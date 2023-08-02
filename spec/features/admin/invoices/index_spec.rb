@@ -45,10 +45,10 @@ RSpec.describe 'Admin Invoices Index Page', type: :feature do
     end
 
     it "Each id links to the admin invoice show page" do
-      expect(page).to have_link("Invoice ##{@invoice_1.id}", count: 1)
-      expect(page).to have_link("Invoice ##{@invoice_2.id}", count: 1)
-      expect(page).to have_link("Invoice ##{@invoice_3.id}", count: 1)
-      expect(page).to have_link("Invoice ##{@invoice_4.id}", count: 1)
+      expect(page).to have_link("Invoice ##{@invoice_1.id}", href: admin_invoice_path(@invoice_1), count: 1)
+      expect(page).to have_link("Invoice ##{@invoice_2.id}", href: admin_invoice_path(@invoice_2), count: 1)
+      expect(page).to have_link("Invoice ##{@invoice_3.id}", href: admin_invoice_path(@invoice_3), count: 1)
+      expect(page).to have_link("Invoice ##{@invoice_4.id}", href: admin_invoice_path(@invoice_4), count: 1)
     end
   end
 end

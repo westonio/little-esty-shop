@@ -9,7 +9,7 @@
       <%= form.submit "Update Invoice" %>
     </p>
   <% end %>
-  <p>Created on: <%= @invoice.created_at.strftime('%A, %e %b %Y') %></p>
+  <p>Created on: <%= @invoice.created_at.strftime('%A, %b %e %Y') %></p>
   <p>Total Revenue: <%= number_to_currency((@invoice.total_revenue / 100.0)) %></p>
 
 

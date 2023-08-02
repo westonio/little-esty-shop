@@ -7,3 +7,9 @@
   <% if flash[:notice] %>
     <p><%= flash[:notice] %></p>
   <% end %>
+</div>
+<% if @item_photos.present? && @item_photos.first.present? %>
+  <%= image_tag @item_photos.first['urls']['small'] %>
+<% else %>
+  <p>No related images found.</p>
+<% end %>
