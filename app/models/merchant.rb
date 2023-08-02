@@ -11,7 +11,13 @@ class Merchant < ApplicationRecord
 
   def favorite_customers
     ids = invoices.pluck(:id)   
-    Customer.select("first_name, last_name, count(result)").joins(invoices: :transactions).where(transactions: {result: "success"}).where(invoices: {id: ids}).order(count: :desc).group("first_name, last_name").limit(5)
+    Customer.select("first_name, last_name, count(result)")
+    .joins(invoices: :transactions)
+    .where(transactions: {result: "success"})
+    .where(invoices: {id: ids})
+    .order(count: :desc)
+    .group("first_name, last_name")
+    .limit(5)
   end
 
   def ready_to_ship
