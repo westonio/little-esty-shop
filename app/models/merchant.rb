@@ -10,7 +10,7 @@ class Merchant < ApplicationRecord
   end
 
   def favorite_customers
-    ids = invoices.pluck(:id)   
+    ids = invoices.pluck(:id)
     Customer.select("first_name, last_name, count(result)").joins(invoices: :transactions).where(transactions: {result: "success"}).where(invoices: {id: ids}).order(count: :desc).group("first_name, last_name").limit(5)
   end
 
@@ -22,5 +22,14 @@ class Merchant < ApplicationRecord
                 .where(items: { status: "enabled" })
                 .where(invoices: { id: invoice_ids })
                 .distinct
+  end
+
+  def top_selling_dates_for_items
+    items
+      .select("items.*, COUNT(*) as sales_count, MAX(invoices.created_at) as top_selling_date")
+      .joins(invoices: :invoice_items)
+      .group("items.id")
+      .order("sales_count DESC, top_selling_date DESC")
+      .limit(5)
   end
 end

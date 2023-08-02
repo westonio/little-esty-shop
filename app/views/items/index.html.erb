@@ -1,4 +1,4 @@
-<%= render partial: "shared/visitor_topper", locals: { items: true  } %>
+
 
 <div class="page-title"><%= @merchant.name%></div>
 <br>
@@ -19,5 +19,13 @@
   <% end %>
 <br>
 <%= link_to "Create new item", new_merchant_item_path(@merchant) %>
+
+<h1>Top Selling Items for <%= @merchant.name %></h1>
+<% @top_items.each do |item| %>
+  <p>
+    <%= item.name %> - Top selling date was <%= item.top_selling_date.strftime('%Y-%m-%d') %>
+  </p>
+<% end %>
+
 
 
