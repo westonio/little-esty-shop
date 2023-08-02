@@ -7,8 +7,8 @@ class Item < ApplicationRecord
 
   enum :status, { 'disabled' => 0, 'enabled' => 1 }
 
-  def self.item_revenue(merchant_id)
-    where(merchant_id:).sum('unit_price')
+  def top_revenue_by_day
+    invoices.select("DATE(invoices.created_at) AS date, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue").joins(:transactions).joins(:invoice_items).where(transactions: {result: "success"}).group("date").order("total_revenue DESC").limit(1).first.date
   end
 end
 
