@@ -2,9 +2,11 @@
 
 <div class="page-title"><%= @merchant.name%></div>
 <br>
-<h2>"Top 5 items"</h2>
-<% @merchant.item_revenue.each do |item| %>
-  <%= item.name %>
+<h1>Top Selling Items for <%= @merchant.name %></h1>
+<% @top_items.each do |invoice| %>
+  <% @merchant.item_revenue.each do |item| %>
+    <p><%= item.name %> <%= invoice.date %></p>
+  <% end %>
 <% end %>
 <br>
 <h2>Enabled Items</h2>
@@ -25,12 +27,10 @@
 <br>
 <%= link_to "Create new item", new_merchant_item_path(@merchant) %>
 
-<h1>Top Selling Items for <%= @merchant.name %></h1>
-<% @top_items.each do |item| %>
-  <p>
-    <%= item.name %> - Top selling date was <%= item.top_selling_date.strftime('%Y-%m-%d') %>
-  </p>
-<% end %>
+
+
+
+
 
 
 

@@ -27,16 +27,11 @@ class Merchant < ApplicationRecord
 
   def item_revenue
     success_ids = invoices.joins(:transactions).where(transactions: {result: "success"}).pluck(:id)
-    Item.select('name, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue').joins(invoices: :invoice_items).where(invoices: {id: success_ids}).group(:name).order("total_revenue desc")
+    Item.select('items.*, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue').joins(invoices: :invoice_items).where(invoices: {id: success_ids}).group("id").order("total_revenue desc").limit(5)
   end
 
-  def top_selling_dates_for_items
-    items
-      .select("items.*, COUNT(*) as sales_count, MAX(invoices.created_at) as top_selling_date")
-      .joins(invoices: :invoice_items)
-      .group("items.id")
-      .order("sales_count DESC, top_selling_date DESC")
-      .limit(5)
+  def top_revenue_by_day
+    invoices.select("DATE(invoices.created_at) AS date, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue").joins(:transactions).joins(:invoice_items).where(transactions: {result: "success"}).group("date").order("total_revenue DESC").limit(1)
   end
 end
 
