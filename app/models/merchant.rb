@@ -33,7 +33,7 @@ class Merchant < ApplicationRecord
     .group('date').order('total_revenue DESC')
     .limit(1).first.date
   end
-end
+
 
   def ready_to_ship
     invoice_ids = invoices.pluck(:id)
