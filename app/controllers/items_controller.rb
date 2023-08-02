@@ -6,6 +6,7 @@ class ItemsController < ApplicationController
   def show
     @merchant = Merchant.find(params[:merchant_id])
     @item = Item.find(params[:id])
+    search_item_photos(@item.name)
   end
 
   def edit
@@ -24,7 +25,7 @@ class ItemsController < ApplicationController
         redirect_to merchant_item_path(@merchant, @item)
       end
     else
-      render "edit"
+      render 'edit'
     end
   end
 

@@ -4,7 +4,7 @@ RSpec.describe Merchant do
   before do
     @merchant_1 = Merchant.create!(id: 1, name: 'Dani')
     @merchant_2 = Merchant.create!(name: 'Mike')
-    @customer_1 = Customer.create!(first_name: "Anna", last_name: "Wiley")
+    @customer_1 = Customer.create!(first_name: 'Anna', last_name: 'Wiley')
     @item_1 = Item.create!(name: 'Apple', description: 'This is an apple', unit_price: 1, merchant_id: @merchant_1.id)
     @item_2 = Item.create!(name: 'Orange', description: 'This is an orange', unit_price: 1, merchant_id: @merchant_1.id)
     @item_3 = Item.create!(name: 'Lemon', description: 'This is a lemon', unit_price: 1, merchant_id: @merchant_1.id)
@@ -74,9 +74,9 @@ RSpec.describe Merchant do
 
                     expect(current_path).to eq(edit_merchant_item_path(@merchant_1, @item_1))
 
-                    expect(page).to have_field("Name", with: @item_1.name)
-                    expect(page).to have_field("Description", with: @item_1.description)
-                    expect(page).to have_field("Unit price", with: @item_1.unit_price)
+                    expect(page).to have_field('Name', with: @item_1.name)
+                    expect(page).to have_field('Description', with: @item_1.description)
+                    expect(page).to have_field('Unit price', with: @item_1.unit_price)
 
                     fill_in 'Name', with: 'Tomato'
                     fill_in 'Description', with: 'This is a tomato'
@@ -101,20 +101,18 @@ RSpec.describe Merchant do
     end
   end
 
-  #9. Merchant Items Index Page
-  describe "As a merchant" do
-    describe "When I visit my items index page (/merchants/:merchant_id/items)" do
-      describe "Next to each item name I see a button to disable or enable that item." do
-        describe "When I click this button" do
-          describe "Then I am redirected back to the items index" do
-            it "And I see that the items status has changed" do
-
+  # 9. Merchant Items Index Page
+  describe 'As a merchant' do
+    describe 'When I visit my items index page (/merchants/:merchant_id/items)' do
+      describe 'Next to each item name I see a button to disable or enable that item.' do
+        describe 'When I click this button' do
+          describe 'Then I am redirected back to the items index' do
+            it 'And I see that the items status has changed' do
               visit merchant_items_path(@merchant_1)
 
               expect(page).to have_button("Enable #{@item_1.name}")
               expect(page).to have_button("Enable #{@item_2.name}")
               expect(page).to have_button("Enable #{@item_3.name}")
-
 
               click_button("Enable #{@item_1.name}")
 
@@ -131,60 +129,57 @@ RSpec.describe Merchant do
     end
   end
 
-#10. Merchant Items Grouped by Status
+  # 10. Merchant Items Grouped by Status
 
-describe "As a merchant," do
-  describe "When I visit my merchant items index page" do
-    describe "Then I see two sections, one for Enabled Items and one for Disabled Items" do
-        it "And I see that each Item is listed in the appropriate section" do
-
+  describe 'As a merchant,' do
+    describe 'When I visit my merchant items index page' do
+      describe 'Then I see two sections, one for Enabled Items and one for Disabled Items' do
+        it 'And I see that each Item is listed in the appropriate section' do
           visit merchant_items_path(@merchant_1)
 
           click_button("Enable #{@item_1.name}")
 
-          expect(page).to have_content("Enabled Items")
-          expect(page).to have_content("Disabled Items")
+          expect(page).to have_content('Enabled Items')
+          expect(page).to have_content('Disabled Items')
 
-          expect(@item_1.name).to appear_before("Disabled Items", only_text: true)
+          expect(@item_1.name).to appear_before('Disabled Items', only_text: true)
 
-          expect(@item_2.name).to_not appear_before("Disabled Items", only_text: true)
-          expect(@item_3.name).to_not appear_before("Disabled Items", only_text: true)
+          expect(@item_2.name).to_not appear_before('Disabled Items', only_text: true)
+          expect(@item_3.name).to_not appear_before('Disabled Items', only_text: true)
         end
       end
     end
   end
 
-  #11. Merchant Items Grouped by Status
-  describe "As a merchant" do
-    describe "When I visit my items index page" do
-      describe "I see a link to create a new item." do
-        describe "When I click on the link," do
-          describe "I am taken to a form that allows me to add item information." do
-            describe "When I fill out the form I click ‘Submit’" do
-              describe "Then I am taken back to the items index page" do
-                describe "And I see the item I just created displayed in the list of items." do
-                  it "And I see my item was created with a default status of disabled." do
-
-
+  # 11. Merchant Items Grouped by Status
+  describe 'As a merchant' do
+    describe 'When I visit my items index page' do
+      describe 'I see a link to create a new item.' do
+        describe 'When I click on the link,' do
+          describe 'I am taken to a form that allows me to add item information.' do
+            describe 'When I fill out the form I click ‘Submit’' do
+              describe 'Then I am taken back to the items index page' do
+                describe 'And I see the item I just created displayed in the list of items.' do
+                  it 'And I see my item was created with a default status of disabled.' do
                     visit merchant_items_path(@merchant_1)
 
-                    expect(page).to have_link("Create new item")
+                    expect(page).to have_link('Create new item')
 
-                    click_link("Create new item")
+                    click_link('Create new item')
 
                     expect(current_path).to eq(new_merchant_item_path(@merchant_1))
 
-                    fill_in "Name", with: "Peach"
-                    fill_in "Description", with: "This is a peach"
-                    fill_in "Unit price", with: 3
+                    fill_in 'Name', with: 'Peach'
+                    fill_in 'Description', with: 'This is a peach'
+                    fill_in 'Unit price', with: 3
 
-                    click_button "Submit"
+                    click_button 'Submit'
 
                     expect(current_path).to eq("/merchants/#{@merchant_1.id}/items")
 
                     expect(current_path).to eq(merchant_items_path(@merchant_1))
-                    expect(page).to have_link("Peach")
-                    expect(Item.last.status).to eq("disabled")
+                    expect(page).to have_link('Peach')
+                    expect(Item.last.status).to eq('disabled')
                   end
                 end
               end
@@ -194,19 +189,19 @@ describe "As a merchant," do
       end
     end
   end
-  #12. Merchant Items Index: 5 most popular items
+  # 12. Merchant Items Index: 5 most popular items
   # Notes on Revenue Calculation:
 
   # Only invoices with at least one successful transaction should count towards revenue
   # Revenue for an invoice should be calculated as the sum of the revenue of all invoice items
   # Revenue for an invoice item should be calculated as the invoice item unit price multiplied by the quantity (do not use the item unit price)
 
-  describe "As a merchant" do
-    describe "When I visit my items index page" do
-      describe "Then I see the names of the top 5 most popular items ranked by total revenue generated" do
-        describe "And I see that each item name links to my merchant item show page for that item" do
-          it "And I see the total revenue generated next to each item name" do
-
+  describe 'As a merchant' do
+    describe 'When I visit my items index page' do
+      describe 'Then I see the names of the top 5 most popular items ranked by total revenue generated' do
+        describe 'And I see that each item name links to my merchant item show page for that item' do
+          it 'And I see the total revenue generated next to each item name' do
+          
             visit merchant_items_path(@merchant_1)
 
             expect(page).to have_content("Top Selling Items for #{@merchant_1.name}")
@@ -215,6 +210,24 @@ describe "As a merchant," do
 
             expect(page).to have_link(@item_1.name)
             expect(page).to have_link(@item_2.name)
+      
+          end
+        end
+
+        # 38. Unsplash API: Item Image
+        # As a visitor or an admin user
+        # When I visit the Merchant Item Show page (/merchants/:merchant_id/items/:item_id)
+        # I see a photo related to that item's name
+
+        describe 'user_story_38' do
+          it 'shows a photo related to the item name or shows the error message from unsplash' do
+            visit merchant_item_path(@merchant_1, @item_1)
+
+            if @item_photos.present? && @item_photos.first.present?
+              expect(page).to have_css('img')
+            else
+              expect(page).to have_css('img', text: @error_message)
+            end
           end
         end
       end
