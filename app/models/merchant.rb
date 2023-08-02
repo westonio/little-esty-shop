@@ -22,12 +22,13 @@ class Merchant < ApplicationRecord
 
   def ready_to_ship
     invoice_ids = invoices.pluck(:id)
-    Item.joins(invoices: :invoice_items)
-                .order(created_at: :asc)
+    Invoice.select("items.name, invoices.id, invoices.created_at")
+                .joins(items: :invoice_items)
                 .where.not(invoice_items: { status: "shipped" })
                 .where.not(invoices: { status: "cancelled" })
                 .where(items: { status: "enabled" })
                 .where(invoices: { id: invoice_ids })
+                .order(created_at: :asc)
                 .distinct
   end
 end
