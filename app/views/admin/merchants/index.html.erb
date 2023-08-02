@@ -1,9 +1,8 @@
 <%= render partial: "shared/admin_topper", locals: { merchants: true  } %>
 
-<div class="page-title">Admin Merchants Index</div> 
-
 <p><%= link_to "Create New Merchant", new_admin_merchant_path %></p>
 
+<div class="left-half-div">
 <div id="enabled-merchants">
   <h3>Enabled Merchants</h3>
   <% @merchants.each do |merchant| %>
@@ -13,7 +12,7 @@
     <% end %>
   <% end %>
 </div>
-
+<br><br>
 <div id="disabled-merchants">
   <h3>Disabled Merchants</h3>
   <% @merchants.each do |merchant| %>
@@ -23,12 +22,16 @@
     <% end %>
   <% end %>
 </div>
+</div>
 
-<div id="top-merchants">
+<div class="right-half-div" id="top-merchants">
   <h3>Top Merchants</h3>
   <ol>
     <% @merchants.top_merchants.each do |merchant| %>
-    <li><%= link_to merchant.name, admin_merchant_path(merchant.id) %> - $<%= merchant.total_revenue %> in sales</li>
+    <li>
+      <p><%= link_to merchant.name, admin_merchant_path(merchant.id) %> - $<%= merchant.total_revenue/100.00 %> in sales </p>
+      <p>Best sales day for <%= merchant.name %> was <%= merchant.best_merchant_sales_day.strftime("%m/%d/%Y") %> </p>
+    </li>
 <% end %>
 </ol>
 </div>

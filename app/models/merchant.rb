@@ -1,13 +1,10 @@
 class Merchant < ApplicationRecord
   has_many :items
+  has_many :invoices, through: :items
 
   validates_presence_of :name, :status
 
   enum :status, { "disabled" => 0, "enabled" => 1 }
-
-  def invoices
-    Invoice.joins(items: :merchant).where(items: { merchant: self }).distinct
-  end
 
   def favorite_customers
     ids = invoices.pluck(:id)   
@@ -15,11 +12,19 @@ class Merchant < ApplicationRecord
   end
 
   def self.top_merchants
-    Merchant.select('merchants.name, merchants.id, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
+    Merchant.select('merchants.*, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
     .joins(items: { invoice_items: { invoice: :transactions } })
     .where(transactions: {result: "success"})
     .group('merchants.id')
     .order('total_revenue DESC')
     .limit(5)
+  end
+
+  def best_merchant_sales_day
+    invoices.select('DATE(invoices.created_at) AS date, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
+    .joins(:transactions).joins(:invoice_items)
+    .where(transactions: {result: "success"})
+    .group('date').order('total_revenue DESC')
+    .limit(1).first.date
   end
 end
