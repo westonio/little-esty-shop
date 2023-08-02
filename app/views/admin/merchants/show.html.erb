@@ -1,9 +1,7 @@
 <%= render partial: "shared/admin_topper", locals: { merchants: true  } %>
 
-
 <h1 class="full-length-header"><%= @merchant.name %></h1>
 
-<div class="page-title">Admin Merchants Show</div>
 <p><%= @merchant.name %></p>
 <div id="random-merchant-image">
   <% if @random_photo %>
