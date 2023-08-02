@@ -11,3 +11,4 @@ class Item < ApplicationRecord
     where(merchant_id:).sum('unit_price')
   end
 end
+
