@@ -1,6 +1,19 @@
 <header>
   <%= link_to "Little Esty Shop", root_path, style: "text-decoration: none; color: black;" %>
 </header>
+<div id="app-logo">
+  <% if @site_photos.present? %>
+    <% @site_photos.first(1).each do |photo| %>
+      <%= image_tag photo['urls']['small'] %>
+      <p>Photo Credit: <%= photo['user']['name'] %></p>
+      <p>Likes: <%= photo['likes'] %></p>
+    <% end %>
+  <% elsif @error_message.present? %>
+    <p><%= @error_message %></p>
+  <% else %>
+    <p>Error</p>
+  <% end %>
+</div>
 <div class="page-topper">
   <div class="merchant-navbar-wrapper">
     <h2 id="merchant-name"><%= @merchant.name %></h2>

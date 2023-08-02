@@ -6,6 +6,7 @@ class Admin::MerchantsController < ApplicationController
   def show
     @merchant = Merchant.find(params[:id])
     @merchant_name = @merchant.name
+    get_random_photo
   end
 
   def update
@@ -13,12 +14,13 @@ class Admin::MerchantsController < ApplicationController
     if @merchant.update(merchant_params)
       if merchant_params[:status].present?
         redirect_to admin_merchants_path
-      else redirect_to admin_merchant_path(@merchant)
+      else
+        redirect_to admin_merchant_path(@merchant)
         flash[:notice] = "#{@merchant.name} has been successfully updated."
       end
-      else
-        flash[:notice] = "Please enter a merchant name to continue."
-        render :edit
+    else
+      flash[:notice] = 'Please enter a merchant name to continue.'
+      render :edit
     end
   end
 
@@ -28,6 +30,7 @@ class Admin::MerchantsController < ApplicationController
 
   def new
   end
+
 
   def create
     @merchant = Merchant.new(new_merchant_params)

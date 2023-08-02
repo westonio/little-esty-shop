@@ -23,6 +23,20 @@ header {
   border-radius: 0px 0px 20px 20px;
 }
 
+#app-logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-size: 10px;
+}
+
+#app-logo img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
+
 #merchant-admin-name {
   display: inline;
   float: left;
@@ -103,6 +117,11 @@ nav a:hover {
   margin-top: 10px;
   margin-left: 50px;
 }
+
+#admin-incomplete-invoices p {
+  font-size: 20px;
+}
+
 #admin-incomplete-invoices a {
   text-decoration: none;
 }
@@ -276,6 +295,11 @@ ul {
   font-family: sans-serif;
 }
 
+.table_body_css {
+  text-align-last: center;
+  font-size: smaller;
+}
+
 .merchant-navbar-wrapper {
   display: flex;
   justify-content: space-between;
@@ -283,9 +307,15 @@ ul {
 }
 
 #merchant-name {
-  margin-left: 20px; /* adjust as needed */
+  margin-left: 20px;
 }
 
 #nav_bar {
-  margin-right: 20px; /* adjust as needed */
+  margin-right: 20px;
 }
+
+.random-merchant-image {
+  max-width: 300px;
+  max-height: 300px;
+}
+

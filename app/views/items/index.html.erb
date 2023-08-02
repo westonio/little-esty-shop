@@ -1,21 +1,25 @@
+<%= render partial: "shared/visitor_topper", locals: { items: true  } %>
 <div class="page-title"><%= @merchant.name%></div>
 <br>
+<h2>"Top 5 items"</h2>
+<% @merchant.items.order(unit_price: :desc).limit(5).each do |item| %>
+  <%= item.name %> - Revenue: <%= item.unit_price %>
+<% end %>
+<br>
 <h2>Enabled Items</h2>
-  <% @merchant.items.each do |item| %>
-    <% if item.status == "enabled" %>
-      <%= link_to item.name, merchant_item_path(@merchant, item) %>
-      <%= button_to "Disable #{item.name}", merchant_item_path(@merchant, item), method: :patch, params: { item: { status: "disabled" } }  %>
-    <% end %>
+<% @merchant.items.each do |item| %>
+  <% if item.status == "enabled" %>
+    <%= link_to item.name, merchant_item_path(@merchant, item) %>
+    <%= button_to "Disable #{item.name}", merchant_item_path(@merchant, item), method: :patch, params: { item: { status: "disabled" } }  %>
   <% end %>
+<% end %>
 <br>
 <h2>Disabled Items</h2>
-  <% @merchant.items.each do |item| %>
-    <% if item.status == "disabled" %>
-      <%= link_to item.name, merchant_item_path(@merchant, item) %>
-      <%= button_to "Enable #{item.name}", merchant_item_path(@merchant, item), method: :patch, params: { item: { status: "enabled" } }  %>
-    <% end %>
+<% @merchant.items.each do |item| %>
+  <% if item.status == "disabled" %>
+    <%= link_to item.name, merchant_item_path(@merchant, item) %>
+    <%= button_to "Enable #{item.name}", merchant_item_path(@merchant, item), method: :patch, params: { item: { status: "enabled" } }  %>
   <% end %>
+<% end %>
 <br>
 <%= link_to "Create new item", new_merchant_item_path(@merchant) %>
-
-
