@@ -175,7 +175,9 @@ RSpec.describe Merchant, type: :model do
       @transaction_17 = @invoice_9.transactions.create!(credit_card_number: 4504301557459341, credit_card_expiration_date: "04/27", result: "success")
 
       expect(@merchant_1.top_5_items).to eq([@item_2, @item_1, @item_5, @item_3, @item_6])
-
+    end
+  end
+  
   describe "user story 30 and 31" do
 
     before do
