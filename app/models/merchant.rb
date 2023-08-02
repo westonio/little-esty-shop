@@ -11,8 +11,14 @@ class Merchant < ApplicationRecord
   end
 
   def favorite_customers
-    ids = invoices.pluck(:id)
-    Customer.select("first_name, last_name, count(result)").joins(invoices: :transactions).where(transactions: {result: "success"}).where(invoices: {id: ids}).order(count: :desc).group("first_name, last_name").limit(5)
+    ids = invoices.pluck(:id)   
+    Customer.select("first_name, last_name, count(result)")
+                .joins(invoices: :transactions)
+                .where(transactions: {result: "success"})
+                .where(invoices: {id: ids})
+                .order(count: :desc)
+                .group("first_name, last_name")
+                .limit(5)
   end
 
   def self.top_merchants
@@ -26,11 +32,13 @@ class Merchant < ApplicationRecord
 
   def ready_to_ship
     invoice_ids = invoices.pluck(:id)
-    Item.joins(invoices: :invoice_items)
+    Invoice.select("items.name, invoices.id, invoices.created_at")
+                .joins(items: :invoice_items)
                 .where.not(invoice_items: { status: "shipped" })
                 .where.not(invoices: { status: "cancelled" })
                 .where(items: { status: "enabled" })
                 .where(invoices: { id: invoice_ids })
+                .order(created_at: :asc)
                 .distinct
   end
 end
