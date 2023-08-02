@@ -10,5 +10,6 @@
 #   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
 #   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
 
-unsplash_access_key: 6_788fotwaHCKeG6UEWibR5F5ZRADrkGs58Woxgc6j4
-unsplash_secret_key: cDA2M2e8mBhcOgVM8-eBSQojE3TTzhJ_K3awh5AuASY
+# UNSPLASH_API_KEY: 6_788fotwaHCKeG6UEWibR5F5ZRADrkGs58Woxgc6j4
+UNSPLASH_API_KEY: OLXKFwbc2UnftZGNGTcSALHtSmkq8rIuTcuTVdTFUMg
+UNSPLASH_SECRET_KEY: cDA2M2e8mBhcOgVM8-eBSQojE3TTzhJ_K3awh5AuASY

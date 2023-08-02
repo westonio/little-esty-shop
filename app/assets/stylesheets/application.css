@@ -307,9 +307,15 @@ ul {
 }
 
 #merchant-name {
-  margin-left: 20px; /* adjust as needed */
+  margin-left: 20px;
 }
 
 #nav_bar {
-  margin-right: 20px; /* adjust as needed */
+  margin-right: 20px;
 }
+
+.random-merchant-image {
+  max-width: 300px;
+  max-height: 300px;
+}
+
