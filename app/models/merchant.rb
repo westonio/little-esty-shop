@@ -6,10 +6,6 @@ class Merchant < ApplicationRecord
 
   enum :status, { "disabled" => 0, "enabled" => 1 }
 
-  def invoices
-    Invoice.joins(items: :merchant).where(items: { merchant: self }).distinct
-  end
-
   def favorite_customers
     ids = invoices.pluck(:id)   
     Customer.select("first_name, last_name, count(result)")
@@ -22,13 +18,22 @@ class Merchant < ApplicationRecord
   end
 
   def self.top_merchants
-    Merchant.select('merchants.name, merchants.id, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
+    Merchant.select('merchants.*, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
     .joins(items: { invoice_items: { invoice: :transactions } })
     .where(transactions: {result: "success"})
     .group('merchants.id')
     .order('total_revenue DESC')
     .limit(5)
   end
+
+  def best_merchant_sales_day
+    invoices.select('DATE(invoices.created_at) AS date, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
+    .joins(:transactions).joins(:invoice_items)
+    .where(transactions: {result: "success"})
+    .group('date').order('total_revenue DESC')
+    .limit(1).first.date
+  end
+end
 
   def ready_to_ship
     invoice_ids = invoices.pluck(:id)
@@ -47,4 +52,5 @@ class Merchant < ApplicationRecord
     Item.select('items.*, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue').joins(invoices: :invoice_items).where(invoices: {id: success_ids}).group("id").order("total_revenue desc").limit(5)
   end
 end
+
 
