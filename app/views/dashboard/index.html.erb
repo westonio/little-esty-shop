@@ -4,10 +4,10 @@
   <%= @merchant.name %>
 </div>
 <div id="random-merchant-image">
-  <% if random_image %>
-    <%= image_tag random_image.urls.small, alt: "Random Image", size: "100x100", class: "random-merchant-image" %>
+  <% if @photo %>
+    <img src="<%= @photo['urls']['regular'] %>" alt="Random Unsplash Image" class="random-merchant-image">
   <% else %>
-    <p>Rate Limit Exceeded</p>
+    <p><%= @error_message %></p>
   <% end %>
 </div>
 <div class="seperator"></div>
