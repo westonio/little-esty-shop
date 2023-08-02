@@ -4,8 +4,8 @@
   <%= @merchant.name %>
 </div>
 <div id="random-merchant-image">
-  <% if @photo %>
-    <img src="<%= @photo['urls']['regular'] %>" alt="Random Unsplash Image" class="random-merchant-image">
+  <% if @random_photo %>
+    <img src="<%= @random_photo['urls']['regular'] %>" alt="Random Unsplash Image" class="random-merchant-image">
   <% else %>
     <p><%= @error_message %></p>
   <% end %>
