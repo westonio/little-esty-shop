@@ -20,15 +20,15 @@ RSpec.describe "Admin Merchants Index Page" do
     @dejon = Customer.create!(first_name: 'Dejob', last_name: 'Hoppe')
     @logan = Customer.create!(first_name: 'Logan', last_name: 'Jenkins')
 
-    @invoice_1 = @joey.invoices.create!()
-    @invoice_2 = @joey.invoices.create!(status: 2)
-    @invoice_3 = @cecelia.invoices.create!()
-    @invoice_4 = @mariah.invoices.create!()
-    @invoice_5 = @leanne.invoices.create!()
-    @invoice_6 = @sylvester.invoices.create!()
-    @invoice_7 = @heber.invoices.create!()
-    @invoice_8 = @dejon.invoices.create!()
-    @invoice_9 = @logan.invoices.create!()
+    @invoice_1 = @joey.invoices.create!(created_at: "2012-03-26 07:54:10 UTC")
+    @invoice_2 = @joey.invoices.create!(created_at: "2012-03-17 07:54:10 UTC", status: 2)
+    @invoice_3 = @cecelia.invoices.create!(created_at: "2012-05-26 07:54:10 UTC")
+    @invoice_4 = @mariah.invoices.create!(created_at: "2012-07-06 07:54:10 UTC")
+    @invoice_5 = @leanne.invoices.create!(created_at: "2012-03-29 07:54:10 UTC")
+    @invoice_6 = @sylvester.invoices.create!(created_at: "2012-03-01 07:54:10 UTC")
+    @invoice_7 = @heber.invoices.create!(created_at: "2012-01-15 07:54:10 UTC")
+    @invoice_8 = @dejon.invoices.create!(created_at: "2012-03-13 07:54:10 UTC")
+    @invoice_9 = @logan.invoices.create!(created_at: "2012-09-10 07:54:10 UTC")
 
     @item_1 = @merchant_1.items.create!(name: "Qui Esse", description: "Nihil autem sit odio inventore deleniti. Est laudantium ratione distincti", unit_price: 75107)
     @item_2 = @merchant_1.items.create!(name: "Autem Minima", description: "Sunt officia eum qui molestiae. Nesciunt quidem cupiditate reiciendis est commodi non.", unit_price: 67076)
@@ -163,6 +163,7 @@ RSpec.describe "Admin Merchants Index Page" do
     expect(page).to have_content(@merchant_4.name)
     expect(page).to have_content(@merchant_5.name)
     expect(page).to have_content(@merchant_6.name)
+    save_and_open_page
     end
   end
 
@@ -172,4 +173,26 @@ RSpec.describe "Admin Merchants Index Page" do
       expect(current_path).to eq(admin_merchant_path(@merchant_1))
     end
   end
+
+  it "displays the total revenue for each top merchant" do
+    expect(page).to have_content("Schroeder-Jerde - $11140.0 in sales")
+    expect(page).to have_content("Bernhard-Johns - $7630.0 in sales")
+    expect(page).to have_content("Cummings-Thiel - $4000.0 in sales")
+    expect(page).to have_content("Klein, Rempel and Jones - $3200.0 in sales")
+    expect(page).to have_content("Williamson Group - $1200.0 in sales")
+  end
+
+
+  it "displays the top sales day " do
+    within("#top-merchants") do
+    expect(page).to have_content("Best sales day for Schroeder-Jerde was 03/26/2012")
+    expect(page).to have_content("Best sales day for Bernhard-Johns was 09/10/2012")
+    expect(page).to have_content("Best sales day for Cummings-Thiel was 03/01/2012")
+    expect(page).to have_content("Best sales day for Klein, Rempel and Jones was 05/26/2012")
+    expect(page).to have_content("Best sales day for Williamson Group was 01/15/2012")
+    end
+  end
+
+
+
 end

@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Merchant, type: :model do
   describe 'Associations' do
     it { should have_many :items }
+    it { should have_many :invoices }
   end
 
   describe 'Validations' do
@@ -104,7 +105,7 @@ RSpec.describe Merchant, type: :model do
     end
   end
 
-  describe "class methods" do
+  describe "user story 30 and 31" do
     before do
     @merchant_1 = Merchant.create!(name: "Schroeder-Jerde")
     @merchant_2 = Merchant.create!(name: "Klein, Rempel and Jones")
@@ -124,15 +125,15 @@ RSpec.describe Merchant, type: :model do
     @dejon = Customer.create!(first_name: 'Dejob', last_name: 'Hoppe')
     @logan = Customer.create!(first_name: 'Logan', last_name: 'Jenkins')
 
-    @invoice_1 = @joey.invoices.create!()
-    @invoice_2 = @joey.invoices.create!(status: 2)
-    @invoice_3 = @cecelia.invoices.create!()
-    @invoice_4 = @mariah.invoices.create!()
-    @invoice_5 = @leanne.invoices.create!()
-    @invoice_6 = @sylvester.invoices.create!()
-    @invoice_7 = @heber.invoices.create!()
-    @invoice_8 = @dejon.invoices.create!()
-    @invoice_9 = @logan.invoices.create!()
+    @invoice_1 = @joey.invoices.create!(created_at: "2012-03-26 07:54:10 UTC")
+    @invoice_2 = @joey.invoices.create!(created_at: "2012-03-17 07:54:10 UTC", status: 2)
+    @invoice_3 = @cecelia.invoices.create!(created_at: "2012-05-26 07:54:10 UTC")
+    @invoice_4 = @mariah.invoices.create!(created_at: "2012-07-06 07:54:10 UTC")
+    @invoice_5 = @leanne.invoices.create!(created_at: "2012-03-29 07:54:10 UTC")
+    @invoice_6 = @sylvester.invoices.create!(created_at: "2012-03-01 07:54:10 UTC")
+    @invoice_7 = @heber.invoices.create!(created_at: "2012-01-15 07:54:10 UTC")
+    @invoice_8 = @dejon.invoices.create!(created_at: "2012-03-13 07:54:10 UTC")
+    @invoice_9 = @logan.invoices.create!(created_at: "2012-09-10 07:54:10 UTC")
 
     @item_1 = @merchant_1.items.create!(name: "Qui Esse", description: "Nihil autem sit odio inventore deleniti. Est laudantium ratione distincti", unit_price: 75107)
     @item_2 = @merchant_1.items.create!(name: "Autem Minima", description: "Sunt officia eum qui molestiae. Nesciunt quidem cupiditate reiciendis est commodi non.", unit_price: 67076)
@@ -172,10 +173,17 @@ RSpec.describe Merchant, type: :model do
 
     @merchants = Merchant.all
     end
+
     describe "self#top_merchants" do
-      it "returns top 5 merchants with the highest total revenue" do
+      it "returns the top 5 merchants with the highest total revenue" do
         expect(@merchants.top_merchants.length).to eq(5)
         expect(@merchants.top_merchants.map(&:name)).to eq([@merchant_1.name, @merchant_6.name, @merchant_4.name, @merchant_2.name, @merchant_5.name])
+      end
+    end
+
+    describe "#best_merchant_sales_day" do
+      it "returns the top sales day date for each top merchant" do
+        expect(@merchant_1.best_merchant_sales_day.strftime("%m/%d/%Y")).to eq("03/26/2012")
       end
     end
   end
