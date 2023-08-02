@@ -15,6 +15,15 @@ class Merchant < ApplicationRecord
     Customer.select("first_name, last_name, count(result)").joins(invoices: :transactions).where(transactions: {result: "success"}).where(invoices: {id: ids}).order(count: :desc).group("first_name, last_name").limit(5)
   end
 
+  def self.top_merchants
+    Merchant.select('merchants.name, merchants.id, SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
+    .joins(items: { invoice_items: { invoice: :transactions } })
+    .where(transactions: {result: "success"})
+    .group('merchants.id')
+    .order('total_revenue DESC')
+    .limit(5)
+  end
+
   def ready_to_ship
     invoice_ids = invoices.pluck(:id)
     Item.joins(invoices: :invoice_items)

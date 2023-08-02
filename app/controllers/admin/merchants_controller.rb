@@ -28,15 +28,17 @@ class Admin::MerchantsController < ApplicationController
     @merchant = Merchant.find(params[:id])
   end
 
-  def new; end
+  def new
+  end
+
 
   def create
     @merchant = Merchant.new(new_merchant_params)
     if @merchant.save
       redirect_to admin_merchants_path
     else
-      flash[:notice] = 'Please enter a merchant name to continue.'
-      render 'new'
+      flash[:notice] = "Please enter a merchant name to continue."
+      render "new"
     end
   end
 
