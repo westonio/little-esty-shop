@@ -172,8 +172,4 @@ RSpec.describe "Admin Merchants Index Page" do
       expect(current_path).to eq(admin_merchant_path(@merchant_1))
     end
   end
-
-  xit "displays each top merchant's best sales day" do
-
-  end
 end
