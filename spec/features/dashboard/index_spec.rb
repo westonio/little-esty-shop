@@ -117,11 +117,13 @@ RSpec.describe "Merchant Dashboard" do
 
     click_link "My Items"
     click_button "Enable Qui Esse"
-
+    click_button "Enable Autem Minima"
+    
     visit merchant_dashboard_index_path(@merchant_1)
 
     expect(page).to have_content(@merchant_1.items.first.name)
     expect(page).to have_content(@invoice_1.created_at.strftime('%A, %B %d, %Y'))
+    expect("Qui Esse").to appear_before("Autem Minima")
   end
 
   describe 'api stories' do
